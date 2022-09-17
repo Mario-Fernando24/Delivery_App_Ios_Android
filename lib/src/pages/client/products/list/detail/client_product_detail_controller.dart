@@ -1,73 +1,103 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:ios/src/models/Product.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 
-class ClientProductsDetailController extends GetxController{
-
-   Product? product;
-   //contador del producto lo inicializo en 1 (el usuario minimo debe agregar un producto)
-   var counter=1.obs;
-   //precio del producto
-   var price=0.0.obs;
-
+class ClientProductsDetailController extends GetxController{  
 
    List<Product> selectProducts =[];
 
-   ClientProductsDetailController(Product product){
-     this.product=product;
-     price.value=product.price ?? 0.0;
-     //le pasamos a la lista el getStorage para que se llene
-     //obtenemos los producto guardados en el GESTORAGE DE LA SESSIÓN
-     if(GetStorage().read('bolsa_compra')!=null){
+   ClientProductsDetailController(){}
+    
+    void verificarIfProductAgregados(Product product, var price, var counter){
+
+      price.value=product.price ?? 0;
+       if(GetStorage().read('bolsa_compra')!=null){
        //validar si gestorage es una list de producto
        if(GetStorage().read('bolsa_compra') is List<Product>){
          selectProducts=GetStorage().read('bolsa_compra');
        }else{
           selectProducts=Product.fromJsonList(GetStorage().read('bolsa_compra'));
        }
-         selectProducts.forEach((element) {
+
+        //para saber si el producto ya fue agregado a la bolsa GESTORAJE
+        int index=selectProducts.indexWhere((productt) => productt.id==product.id);
+       
+
+        if(index!=-1){ //el producto ya fue agregado
+             counter.value = selectProducts[index].quantity ?? 0;
+             price.value = product.price! * counter.value;
+             selectProducts.forEach((element) {
            print(element.toJson());
           });
+        }
+         
      }
-   }
+    }
 
+      void addBolsa(Product product, var price, var counter){
 
-      void addBolsa(){
+      if(counter.value>0){
+
         //para saber si el producto ya fue agregado a la bolsa GESTORAJE
-        int index=selectProducts.indexWhere((productt) => productt.id==product?.id);
+        int index=selectProducts.indexWhere((productt) => productt.id==product.id);
 
         //el producto aun no ha sido agregado
         if(index==-1){
-          print("Mariooooooo"+index.toString());
-           if(product?.quantity==null){
+           if(product.quantity==null){
+            if(counter.value>0){
+              product.quantity=counter.value;
+            }else{
+              product.quantity=1;
+            }
               //le asignamos la cantidad selecionada por el usuario
-              product?.quantity=1;
            }
-           selectProducts.add(product!);
+           selectProducts.add(product);
+           
         }else{
-          
-          print("Muñozzzzzz"+index.toString());
-          //el producto ya ha sido agregado en el GESTORAGE
-          selectProducts[index].quantity=counter.value;
-        }
-        GetStorage().write('bolsa_compra', selectProducts);
-      // Fluttertoast.showToast(msg: "Producto agregado");
-    
+             //el producto ya ha sido agregado en el GESTORAGE
+             selectProducts[index].quantity=counter.value;
+              }
+               GetStorage().write('bolsa_compra', selectProducts);
+              toaShow("Producto agregado","correctamente",2);  
+
+       }else{
+        toaShow("Advertencia","debes seleccionar un item para agregarlo",1);  
+            }
 
       }
    //para agregar un item
-   void addItem(){
+   void addItem(Product product, var price, var counter){
+    print("PRODUCTO AGREGADO: ${product.toJson()} ");
     counter.value=counter.value+1;
-    price.value=product!.price!* counter.value;
+    price.value=product.price!* counter.value;
    }
    //metodo para remover un item y actualizar el precio
-    void removeItem(){
+    void removeItem(Product product, var price, var counter){
       if(counter.value>0){
         counter.value=counter.value-1;
-        price.value=product!.price!* counter.value;
+        price.value=product.price!* counter.value;
       }
 
 
+   }
+
+
+
+
+   void toaShow(String title,String subtitle, int numero){
+       Get.snackbar(
+          title,
+          subtitle,
+          icon: Icon(Icons.warning, color: Colors.white),
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: numero==1? Colors.amber[400] : Colors.green,
+          borderRadius: 20,
+          margin: EdgeInsets.all(15),
+          colorText: Colors.white,
+          duration: Duration(seconds: 3),
+          isDismissible: true,
+          forwardAnimationCurve: Curves.bounceInOut,
+               ); 
    }
 }

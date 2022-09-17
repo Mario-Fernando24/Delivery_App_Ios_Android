@@ -13,15 +13,23 @@ class ClientProductDetailPage extends StatelessWidget {
    Product? product;
    late ClientProductsDetailController clientProductsListController;
 
+    //contador del producto lo inicializo en 1 (el usuario minimo debe agregar un producto)
+   var counter=0.obs;
+   //precio del producto
+   var price=0.0.obs;
+
+
    String noImagen="https://images.wondershare.com/recoverit/article/2020/05/cant-open-png-file-0.jpg";
     ClientProductDetailPage({@required this.product}){
-    clientProductsListController = Get.put(ClientProductsDetailController(product!));
+    clientProductsListController = Get.put(ClientProductsDetailController());
    }
 
     
     
   @override
   Widget build(BuildContext context) {
+
+    clientProductsListController.verificarIfProductAgregados(product!, price, counter);
     return  Obx(()=> Scaffold(
       bottomNavigationBar: Container(
         height: 100,
@@ -123,7 +131,7 @@ class ClientProductDetailPage extends StatelessWidget {
          child: Row(
            children: [
             ElevatedButton(
-            onPressed: ()=>clientProductsListController.removeItem(),
+            onPressed: ()=>clientProductsListController.removeItem(product!, price, counter),
             child: Text("-",style: 
             TextStyle(
               color: Colors.black,
@@ -142,7 +150,7 @@ class ClientProductDetailPage extends StatelessWidget {
          
           ElevatedButton(
             onPressed: (){},
-            child: Text('${clientProductsListController.counter.value}',style: 
+            child: Text('${counter.value}',style: 
             TextStyle(
               color: Colors.black,
               fontSize: 22
@@ -160,7 +168,7 @@ class ClientProductDetailPage extends StatelessWidget {
 
 
             ElevatedButton(
-            onPressed: ()=>clientProductsListController.addItem(),
+            onPressed: ()=>clientProductsListController.addItem(product!, price, counter),
             child: Text("+",style: 
             TextStyle(
               color: Colors.black,
@@ -181,8 +189,8 @@ class ClientProductDetailPage extends StatelessWidget {
           //el resto que sobre
           Spacer(),
           ElevatedButton(
-            onPressed: ()=>clientProductsListController.addBolsa(),
-            child: Text("Agregar  ${(clientProductsListController.price.value).toStringAsFixed(2)}",style: 
+            onPressed: ()=>clientProductsListController.addBolsa(product!, price, counter),
+            child: Text("Agregar  ${(price.value).toStringAsFixed(2)}",style: 
             TextStyle(
               color: Colors.black,
               fontSize: 15

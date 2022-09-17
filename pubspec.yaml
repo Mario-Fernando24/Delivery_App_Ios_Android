@@ -37,7 +37,7 @@ dependencies:
   #flutter_image_slideshow: ^0.1.0
   #carousel_slider: ^4.1.1
   carousel_images: ^1.1.2
-  fluttertoast: ^8.0.3
+  #fluttertoast: ^8.0.3
 
 
 
