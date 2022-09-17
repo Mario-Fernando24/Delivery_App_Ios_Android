@@ -16,7 +16,12 @@ class ClientProfileInfoPage extends StatelessWidget {
         _backgruoundCover(context),
         _boxForm(context),
         _imageCover(context),
-         _buttonSingOut(context)
+         Column(
+          children: [
+        _buttonSingOut(context),
+         _buttonRoles(context)
+          ],
+         )
       ],
       )),
     );
@@ -140,6 +145,20 @@ Widget _buttonUpdate(BuildContext context){
           icon: Icon(Icons.power_settings_new,
           size: 30,),
         ),
+      ),
+    );
+  }
+
+
+  Widget _buttonRoles(BuildContext context){
+    return Container(
+      margin: EdgeInsets.only(right: 20),
+      alignment: Alignment.topRight,
+      child: IconButton(
+        onPressed: ()=>_clientProfileInfoController.goToRoles(), 
+        color: Colors.white,
+        icon: Icon(Icons.supervised_user_circle,
+        size: 30,),
       ),
     );
   }

@@ -19,6 +19,10 @@ class ClientProductsListController extends GetxController{
           getCategories();
         }
 
+        void goToOrdersCreate(){
+          Get.toNamed('/client/products/orders/create');
+        }
+
         //listar todas las categorias
         void getCategories() async{
           var result = await categoryProviders.getAllCategory();

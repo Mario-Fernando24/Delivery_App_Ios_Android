@@ -4,6 +4,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:ios/src/models/User.dart';
 import 'package:ios/src/pages/client/products/home/client_home_page.dart';
 import 'package:ios/src/pages/client/products/list/client_product_list_page.dart';
+import 'package:ios/src/pages/client/products/orders/create/client_orders_create_page.dart';
 import 'package:ios/src/pages/client/products/profile/info/client_profile_info_page.dart';
 import 'package:ios/src/pages/client/products/profile/update/client_profile_update_page.dart';
 import 'package:ios/src/pages/delivery/orders/list/delivery_orders_list_page.dart';
@@ -53,6 +54,9 @@ class _MyAppState extends State<MyApp> {
         GetPage(name: '/client/products/list', page: ()=>ClientProductsListPage()),
         GetPage(name: '/client/profile/info', page: ()=>ClientProfileInfoPage()),
         GetPage(name: '/client/profile/update', page: ()=>ClientProfileUpdatePage()),
+        GetPage(name: '/client/products/orders/create', page: ()=>ClientOrdersCreatePage()),
+        
+        
         //HOME      
       ],
       theme: ThemeData(
