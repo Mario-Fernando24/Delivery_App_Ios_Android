@@ -54,7 +54,7 @@ class _MyAppState extends State<MyApp> {
         GetPage(name: '/client/products/list', page: ()=>ClientProductsListPage()),
         GetPage(name: '/client/profile/info', page: ()=>ClientProfileInfoPage()),
         GetPage(name: '/client/profile/update', page: ()=>ClientProfileUpdatePage()),
-        GetPage(name: '/client/products/orders/create', page: ()=>ClientOrdersCreatePage()),
+        GetPage(name: '/client/products/orders', page: ()=>ClientOrdersCreatePage()),
         
         
         //HOME      

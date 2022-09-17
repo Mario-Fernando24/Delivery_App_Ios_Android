@@ -20,7 +20,7 @@ class ClientProductsListController extends GetxController{
         }
 
         void goToOrdersCreate(){
-          Get.toNamed('/client/products/orders/create');
+          Get.toNamed('/client/products/orders');
         }
 
         //listar todas las categorias
