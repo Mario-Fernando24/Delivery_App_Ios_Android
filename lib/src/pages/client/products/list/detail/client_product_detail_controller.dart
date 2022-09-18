@@ -89,15 +89,16 @@ class ClientProductsDetailController extends GetxController{
        Get.snackbar(
           title,
           subtitle,
-          icon: Icon(Icons.warning, color: Colors.white),
+          icon: Icon(
+          numero==1? Icons.warning: Icons.check, color: Colors.white),
           snackPosition: SnackPosition.BOTTOM,
           backgroundColor: numero==1? Colors.amber[400] : Colors.green,
           borderRadius: 20,
           margin: EdgeInsets.all(15),
-          colorText: Colors.white,
+          colorText: Colors.black,
           duration: Duration(seconds: 3),
           isDismissible: true,
           forwardAnimationCurve: Curves.bounceInOut,
-               ); 
+        ); 
    }
 }

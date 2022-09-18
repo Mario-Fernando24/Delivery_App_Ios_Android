@@ -3,6 +3,7 @@ import 'package:ios/src/models/Category.dart';
 import 'package:ios/src/models/Product.dart';
 import 'package:ios/src/pages/client/products/list/client_product_list_controller.dart';
 import 'package:get/get.dart';
+import 'package:ios/src/utils/expresiones_regulares.dart';
 import 'package:ios/src/utils/theme/style.dart';
 import 'package:ios/src/widget/no_data_widget.dart';
 
@@ -98,9 +99,12 @@ class _ClientProductsListPageState extends State<ClientProductsListPage> {
       child: Column(
         children: [
           Container(
-          margin: EdgeInsets.only(top: 15, left: 20, right: 20),
+          margin: EdgeInsets.only(top: 5, left: 20, right: 20),
           child: ListTile(
             title: Text(product.name ?? '',
+                maxLines: 2,style: TextStyle(
+                fontSize: 15
+                ),
            ),
             subtitle: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -108,15 +112,22 @@ class _ClientProductsListPageState extends State<ClientProductsListPage> {
                 SizedBox(height: 5),
                 Text(product.description ?? '',
                 maxLines: 2,style: TextStyle(
-                fontSize: 13
+                fontSize: 12
                 ),
               ),
                 SizedBox(height: 10),
-                Text("\$"+ product.price.toString(),
-                style: TextStyle(
-                 fontWeight: FontWeight.bold,
-                 color: Colors.black),
-                 ),
+
+                Row(
+                  children: [
+                  Text("\$ "+ numberFormat(product.price.toString()),
+                  style: TextStyle(
+                   fontWeight: FontWeight.bold,
+                   color: Colors.black,
+                    fontSize: 15),
+                   ),
+                   
+                   ]
+                ),
                 SizedBox(height: 20),
     
       

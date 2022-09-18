@@ -19,9 +19,9 @@ class ProductsProviders extends GetConnect{
   //ME RETORNA UNA LISTA DE PRODUCTO, LE ENVIO POR PARAMETRO EL ID DE LA CATEGORIA
     Future<List<Product>> findByProductWithCategory(String idcategory) async {
       
-      print("::::::::::::::::::::::::::::::::::::::");
-      print(idcategory);
-      print(":::::::::::::::::::::::::::::::::::::::");
+      // print("::::::::::::::::::::::::::::::::::::::");
+      // print(idcategory);
+      // print(":::::::::::::::::::::::::::::::::::::::");
       Response response = await get(
           '$url/findByProducts/$idcategory',
           headers: {

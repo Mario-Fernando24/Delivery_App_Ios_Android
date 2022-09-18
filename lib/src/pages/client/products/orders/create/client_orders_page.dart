@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:ios/src/pages/client/products/orders/create/client_orders_controllers.dart';
 
 
-class ClientOrdersCreatePage extends StatelessWidget {
-  const ClientOrdersCreatePage({Key? key}) : super(key: key);
+class ClientOrdersPage extends StatelessWidget {
+  
+   ClientOrdersController _clientOrdersController= Get.put(ClientOrdersController());
 
   @override
   Widget build(BuildContext context) {
