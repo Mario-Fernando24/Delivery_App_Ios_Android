@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:ios/src/models/Product.dart';
@@ -5,7 +7,7 @@ import 'package:ios/src/models/Product.dart';
 class ClientOrdersController extends GetxController{
    
    List<Product> selectProducts =[];
-  
+   var counter=0.obs;
     //obtengo en el constructor los producto guardados en el GetStorage y lo almaceno en una lista de producto
      ClientOrdersController(){
      

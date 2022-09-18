@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ios/src/models/Product.dart';
 import 'package:ios/src/pages/client/products/list/detail/client_product_detail_controller.dart';
+import 'package:ios/src/utils/expresiones_regulares.dart';
 import 'package:ios/src/utils/theme/style.dart';
 
 // ignore: must_be_immutable
@@ -111,7 +112,7 @@ class ClientProductDetailPage extends StatelessWidget {
     return Container(
       alignment: Alignment.centerLeft,
       margin: EdgeInsets.only(top: 15, left: 30, right: 30),
-      child: Text('\$ ${product?.price.toString() ?? ''}',
+      child: Text('\$ ${ numberFormat(product?.price.toString()  ?? '' )}',
        style: TextStyle(
         fontSize: 16,
         color: Colors.black,
@@ -190,7 +191,7 @@ class ClientProductDetailPage extends StatelessWidget {
           Spacer(),
           ElevatedButton(
             onPressed: ()=>clientProductsListController.addBolsa(product!, price, counter),
-            child: Text("Agregar  ${(price.value).toStringAsFixed(2)}",style: 
+            child: Text("Agregar  ${( numberFormat(price.value.toString() ))}",style: 
             TextStyle(
               color: Colors.black,
               fontSize: 15
@@ -202,9 +203,6 @@ class ClientProductDetailPage extends StatelessWidget {
               )
             ),),
 
-
-
-            
 
 
             

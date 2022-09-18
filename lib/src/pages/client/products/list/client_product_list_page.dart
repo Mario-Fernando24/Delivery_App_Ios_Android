@@ -103,7 +103,8 @@ class _ClientProductsListPageState extends State<ClientProductsListPage> {
           child: ListTile(
             title: Text(product.name ?? '',
                 maxLines: 2,style: TextStyle(
-                fontSize: 15
+                fontSize: 15,
+                fontWeight: FontWeight.normal
                 ),
            ),
             subtitle: Column(
@@ -121,9 +122,9 @@ class _ClientProductsListPageState extends State<ClientProductsListPage> {
                   children: [
                   Text("\$ "+ numberFormat(product.price.toString()),
                   style: TextStyle(
-                   fontWeight: FontWeight.bold,
+                   fontWeight: FontWeight.normal,
                    color: Colors.black,
-                    fontSize: 15),
+                    fontSize: 13),
                    ),
                    
                    ]
