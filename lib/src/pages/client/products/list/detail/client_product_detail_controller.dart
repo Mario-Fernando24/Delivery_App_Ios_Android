@@ -39,10 +39,8 @@ class ClientProductsDetailController extends GetxController{
 
       if(counter.value>0){
 
-        //para saber si el producto ya fue agregado a la bolsa GESTORAJE
         int index=selectProducts.indexWhere((productt) => productt.id==product.id);
 
-        //el producto aun no ha sido agregado
         if(index==-1){
            if(product.quantity==null){
             if(counter.value>0){
@@ -50,12 +48,10 @@ class ClientProductsDetailController extends GetxController{
             }else{
               product.quantity=1;
             }
-              //le asignamos la cantidad selecionada por el usuario
            }
            selectProducts.add(product);
            
         }else{
-             //el producto ya ha sido agregado en el GESTORAGE
              selectProducts[index].quantity=counter.value;
               }
                GetStorage().write('bolsa_compra', selectProducts);

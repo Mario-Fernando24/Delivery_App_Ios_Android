@@ -55,8 +55,6 @@ class _MyAppState extends State<MyApp> {
         GetPage(name: '/client/profile/info', page: ()=>ClientProfileInfoPage()),
         GetPage(name: '/client/profile/update', page: ()=>ClientProfileUpdatePage()),
         GetPage(name: '/client/products/orders', page: ()=>ClientOrdersPage()),
-        
-        
         //HOME      
       ],
       theme: ThemeData(
