@@ -46,13 +46,18 @@ class ClientProductsDetailController extends GetxController{
             if(counter.value>0){
               product.quantity=counter.value;
             }else{
+    
               product.quantity=1;
             }
            }
+           print("mario fernando muñoz rivera"+product.toJson().toString());
            selectProducts.add(product);
            
         }else{
              selectProducts[index].quantity=counter.value;
+             print("=======================================================");
+             print(selectProducts[index].toJson());
+             print("=======================================================");
               }
                GetStorage().write('bolsa_compra', selectProducts);
               toaShow("Producto agregado","correctamente",2);  
@@ -64,7 +69,7 @@ class ClientProductsDetailController extends GetxController{
       }
    //para agregar un item
    void addItem(Product product, var price, var counter){
-    print("PRODUCTO AGREGADO: ${product.toJson()} ");
+    print("PRODUCTO AGREGADO MARIO: ${product.toJson()} ");
     counter.value=counter.value+1;
     price.value=product.price!* counter.value;
    }

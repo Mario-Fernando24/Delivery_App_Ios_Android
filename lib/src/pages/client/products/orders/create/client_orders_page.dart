@@ -13,7 +13,7 @@ class ClientOrdersPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     
-    return Scaffold(
+    return  Obx(()=> Scaffold(
       bottomNavigationBar: Container(
         height: 100,
         color: Color.fromRGBO(245, 245, 245, 1),
@@ -35,7 +35,7 @@ class ClientOrdersPage extends StatelessWidget {
                  return _cardProduct(product);
               }).toList(),
             ) : Center(child: NoDataWidget(text: "No hay ningun producto aun",))
-    );
+    ));
   }
 
 
@@ -72,7 +72,7 @@ class ClientOrdersPage extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                Text("TOTAL: \$ 0.00",style: TextStyle(
+                Text("TOTAL: \$ ${_clientOrdersController.total.value}",style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 17
                 ),),
@@ -133,7 +133,8 @@ class ClientOrdersPage extends StatelessWidget {
 
 
   Widget _iconDelete(Product product){
-    return IconButton(onPressed: (){},
+    return IconButton(
+      onPressed: ()=>_clientOrdersController.deleteProduct(product),
      icon: Icon(
       Icons.delete,
       color: Colors.red,
@@ -158,7 +159,7 @@ class ClientOrdersPage extends StatelessWidget {
       return Row(
         children: [
           GestureDetector(
-            onTap: (){},
+            onTap: ()=>_clientOrdersController.removeItem(product),
             child: Container(
               padding: EdgeInsets.symmetric(horizontal: 12, vertical: 7),
               decoration: BoxDecoration(
@@ -181,7 +182,7 @@ class ClientOrdersPage extends StatelessWidget {
 
 
            GestureDetector(
-            onTap: (){},
+            onTap: ()=>_clientOrdersController.addItem(product),
             child: Container(
               padding: EdgeInsets.symmetric(horizontal: 12, vertical: 7),
               decoration: BoxDecoration(
