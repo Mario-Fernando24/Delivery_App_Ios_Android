@@ -31,12 +31,12 @@ class ClientProductDetailPage extends StatelessWidget {
   Widget build(BuildContext context) {
 
     clientProductsListController.verificarIfProductAgregados(product!, price, counter);
-    return  Obx(()=> Scaffold(
+    return  Scaffold(
       bottomNavigationBar: Container(
         height: 100,
         child: addButtonCart()
         ),
-      body: Column(
+      body:  Column(
         children: [
            _imageSlidershow(context),
            _textNameProduct(),
@@ -45,12 +45,12 @@ class ClientProductDetailPage extends StatelessWidget {
       
           ],
       )
-    ));
+    );
   }
 
   //WIDGET DONDE MOSTRAREMOS LAS 3 IMAGENES QUE TENEMOS ALMACENADAS
   Widget _imageSlidershow(BuildContext context){
-       return SafeArea(
+       return    SafeArea(
         child: Stack(
            children: [
             Container(
@@ -80,7 +80,7 @@ class ClientProductDetailPage extends StatelessWidget {
             )
            ],
           )
-        );
+       );
   }
 
 
@@ -123,7 +123,7 @@ class ClientProductDetailPage extends StatelessWidget {
 
 
   Widget addButtonCart(){
-    return Column(
+    return Obx(()=> Column(
       children: [
         Divider(height: 1, color:Colors.grey[400],),
        
@@ -202,15 +202,12 @@ class ClientProductDetailPage extends StatelessWidget {
                 borderRadius: BorderRadius.circular(25)
               )
             ),),
-
-
-
             
-      ],
+         ],
          ),
        )
       ]
-    );
+    ));
   }
 
 }
