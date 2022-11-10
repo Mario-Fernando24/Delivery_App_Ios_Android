@@ -88,4 +88,8 @@ class ClientOrdersController extends GetxController{
       });
     }
 
+    void goToListAddres(){
+      Get.toNamed('/client/addres/list');
+    }
+
 }

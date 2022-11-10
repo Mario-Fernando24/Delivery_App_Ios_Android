@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:ios/src/models/User.dart';
+import 'package:ios/src/pages/client/products/address/create/client_addres_create_page.dart';
+import 'package:ios/src/pages/client/products/address/list/client_addres_list_page.dart';
 import 'package:ios/src/pages/client/products/home/client_home_page.dart';
 import 'package:ios/src/pages/client/products/list/client_product_list_page.dart';
 import 'package:ios/src/pages/client/products/orders/create/client_orders_page.dart';
@@ -55,6 +57,11 @@ class _MyAppState extends State<MyApp> {
         GetPage(name: '/client/profile/info', page: ()=>ClientProfileInfoPage()),
         GetPage(name: '/client/profile/update', page: ()=>ClientProfileUpdatePage()),
         GetPage(name: '/client/products/orders', page: ()=>ClientOrdersPage()),
+        GetPage(name: '/client/addres/create', page: ()=>ClientAddresCreatePage()),
+        GetPage(name: '/client/addres/list', page: ()=>ClientAddresListPage()),
+
+
+        
         //HOME      
       ],
       theme: ThemeData(

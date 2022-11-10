@@ -81,11 +81,11 @@ class ClientOrdersPage extends StatelessWidget {
 
                   margin: EdgeInsets.symmetric(horizontal: 30),
                   child: ElevatedButton(
-                   onPressed: (){},
+                   onPressed: ()=>_clientOrdersController.goToListAddres(),
                    style: ElevatedButton.styleFrom(
                     padding: EdgeInsets.all(10)
                    ),
-                   child: Text('CONFIRMAR ORDER',
+                   child: Text('CONFIRMAR ORDEN',
                    style: TextStyle(
                     color: Colors.black
                    ),)),
