@@ -8,7 +8,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:ios/src/models/User.dart';
 import 'package:ios/src/models/response_api.dart';
 import 'package:ios/src/pages/client/products/profile/info/client_profile_info_controller.dart';
-import 'package:ios/src/pages/providers/users_providers.dart';
+import 'package:ios/src/providers/users_providers.dart';
 import 'package:sn_progress_dialog/progress_dialog.dart';
 
 class ClientProfileUpdateController extends GetxController{

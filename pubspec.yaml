@@ -40,6 +40,17 @@ dependencies:
   #carousel_slider: ^4.1.1
   carousel_images: ^1.1.2
   #fluttertoast: ^8.0.3
+  #mostral el mapa al momento del cliente crear una nueva direccion
+  google_maps_flutter: ^2.2.1
+  #para poder obtener nuestra localización
+  geolocator: ^8.2.0
+  #arrastrar y obtener la direccion
+  geocoding: ^2.0.4
+  #complementario para obtenr la localización
+  location: ^4.2.0
+
+
+
 
 
 

@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:ios/src/environment/routes.dart';
 import 'package:ios/src/models/Product.dart';
 
 class ClientOrdersController extends GetxController{
@@ -89,7 +90,7 @@ class ClientOrdersController extends GetxController{
     }
 
     void goToListAddres(){
-      Get.toNamed('/client/addres/list');
+      Get.toNamed(ROUTES.listarAddres);
     }
 
 }

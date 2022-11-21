@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:ios/src/models/User.dart';
 import 'package:ios/src/models/response_api.dart';
-import 'package:ios/src/pages/providers/users_providers.dart';
+import 'package:ios/src/providers/users_providers.dart';
 
 class LoginController extends GetxController{
 

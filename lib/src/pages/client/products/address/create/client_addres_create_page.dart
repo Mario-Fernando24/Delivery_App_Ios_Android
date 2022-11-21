@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ios/src/pages/client/products/address/create/client_addres_create_controller.dart';
@@ -77,7 +78,7 @@ Widget _boxForm(BuildContext context){
           _textYourInfo(),
           _textAddress(),
           _textNombreBarrio(),
-          _textPuntoReferencia(),
+          _textPuntoReferencia(context),
           SizedBox(height: 20),
           _buttonUpdate(context)
         ],
@@ -123,11 +124,14 @@ Widget _textNombreBarrio(){
    );
 }
 
-Widget _textPuntoReferencia(){
+Widget _textPuntoReferencia(BuildContext context){
    return Container(
     margin: EdgeInsets.symmetric(horizontal: 30),
      child: TextField(
+      onTap: () => _clientAddresCreateController.goToGoogleMap(context),
       controller: _clientAddresCreateController.puntoReferenciaController,
+      autofocus: false,
+      focusNode: AlwaysDisableFocusNode(),
       keyboardType: TextInputType.text,
       decoration: InputDecoration(
         hintText: 'Punto de referencia',
@@ -144,7 +148,7 @@ Widget _buttonUpdate(BuildContext context){
     width: double.infinity,
     margin: EdgeInsets.symmetric(horizontal: 30,vertical: 20),
     child: ElevatedButton(
-      onPressed: ()=> (){},
+      onPressed: ()=> _clientAddresCreateController.createAddress(),
       style: ElevatedButton.styleFrom(
         padding: EdgeInsets.symmetric(vertical: 15)
       ),
@@ -155,4 +159,13 @@ Widget _buttonUpdate(BuildContext context){
        ),
   );
 }
+
+
+
+}
+
+class AlwaysDisableFocusNode extends FocusNode{
+  @override
+
+  bool get hasFocus => false;
 }

@@ -9,8 +9,8 @@ import 'package:image_picker/image_picker.dart';
 import 'package:ios/src/models/Category.dart';
 import 'package:ios/src/models/Product.dart';
 import 'package:ios/src/models/response_api.dart';
-import 'package:ios/src/pages/providers/categories_providers.dart';
-import 'package:ios/src/pages/providers/products_providers.dart';
+import 'package:ios/src/providers/categories_providers.dart';
+import 'package:ios/src/providers/products_providers.dart';
 import 'package:sn_progress_dialog/progress_dialog.dart';
 
 
