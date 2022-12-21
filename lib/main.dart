@@ -59,10 +59,7 @@ class _MyAppState extends State<MyApp> {
         GetPage(name: '/client/profile/update', page: ()=>ClientProfileUpdatePage()),
         GetPage(name: '/client/products/orders', page: ()=>ClientOrdersPage()),
         GetPage(name: '/client/addres/create', page: ()=>ClientAddresCreatePage()),
-        GetPage(name: ROUTES.listarAddres, page: ()=>ClientAddresListPage()),
-
-
-        
+        GetPage(name: ROUTES.listarAddres, page: ()=>ClientAddresListPage()),  
         //HOME      
       ],
       theme: ThemeData(

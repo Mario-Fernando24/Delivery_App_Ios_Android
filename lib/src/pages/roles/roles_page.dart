@@ -14,7 +14,7 @@ class RolesPage extends StatelessWidget {
         title: Text("Seleccione el rol",style: TextStyle(color: Colors.black),),
       ),
       body: Container(
-        margin: EdgeInsets.symmetric(vertical: MediaQuery.of(context).size.height*0.17),
+        margin: EdgeInsets.symmetric(vertical: MediaQuery.of(context).size.height*0.10),
         child: ListView(
           children: 
            rolesController.user.roles!=null? rolesController.user.roles!.map((Rol rol) {

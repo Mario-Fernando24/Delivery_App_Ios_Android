@@ -11,6 +11,7 @@ import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 class ClientProductsListController extends GetxController{
   
     List<Category> categoriess =<Category>[].obs;
+    
     CategoryProviders categoryProviders = CategoryProviders();
     ProductsProviders productsProviders = ProductsProviders();
 

@@ -5,7 +5,6 @@ import 'package:ios/src/environment/environment.dart';
 import 'package:ios/src/models/Address.dart';
 import 'package:ios/src/models/User.dart';
 import 'package:ios/src/models/response_api.dart';
-
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 
@@ -13,7 +12,30 @@ import 'package:http/http.dart' as http;
 class AddressProviders extends GetConnect{
   
   String url = Environment.API_URL +'api/address';
+ 
   User userSesion = User.fromJson(GetStorage().read('user') ?? {});
+
+    Future<List<Address>> getByfindId() async {
+
+      Response response = await get(
+          '$url/getByfind/$userSesion.id',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': userSesion.session_token ?? ''
+          }
+      ); 
+      
+      if(response.statusCode==401){
+          Get.snackbar("Error", "No tiene permisos");
+          return [];
+      }
+      List<Address> address =Address.fromJsonList(response.body);
+
+      print(address);
+      
+      return address;
+      
+    }
 
  Future<ResponseApi> createAddress(Address address) async {
   

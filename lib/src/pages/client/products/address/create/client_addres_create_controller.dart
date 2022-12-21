@@ -17,6 +17,9 @@ class ClientAddresCreateController extends GetxController{
     TextEditingController puntoReferenciaController = TextEditingController();
     AddressProviders addressProviders = AddressProviders();
 
+    //me permite utilizar todo los metodos de ese controlador
+    //ClientAddresCreateController clientAddresCreateController = Get.find();
+
     double latitud=0.0;
     double longitud=0.0;
 
@@ -56,13 +59,17 @@ class ClientAddresCreateController extends GetxController{
       );
 
       ResponseApi responseApi = await addressProviders.createAddress(addresss);
+      
+         toaShow("Mensaje", responseApi.message ?? '',2);
+         clearForm();
 
-     toaShow("Mensaje", responseApi.message ?? '',2);
-    
-      clearForm();
-
-      Get.back();
-
+        // Get.back();
+        if(responseApi.success==true){
+          addresss.id=responseApi.data;
+          GetStorage().write('direccion',addresss.toJson());
+          // clientAddresCreateController.update();
+          Get.toNamed(ROUTES.listarAddres);
+        }
 
      }
      

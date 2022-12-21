@@ -35,7 +35,7 @@ class ProductsProviders extends GetConnect{
           Get.snackbar("Error", "No tiene permisos");
           return [];
       }
-      List<Product> products =Product.fromJsonList(response.body);
+      List<Product> products =Product.fromJsonList(response.body!);
       return products;
       
     }
