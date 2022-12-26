@@ -13,6 +13,7 @@ class ClientAddresListPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      bottomNavigationBar: _buttonNext(context),
       appBar: AppBar(
         iconTheme: IconThemeData(color: Colors.black),
         title: Text('Mis Direcciones',style: TextStyle(color: Colors.black),),
@@ -110,6 +111,26 @@ class ClientAddresListPage extends StatelessWidget {
       ),
     );
   }
+
+
+  Widget _buttonNext(BuildContext context){
+  return Container(
+    width: double.infinity,
+    height: 50,
+    margin: EdgeInsets.symmetric(horizontal: 30,vertical: 30),
+    child: ElevatedButton(
+      onPressed: ()=>_clientAddresListController.createOrders(),
+      style: ElevatedButton.styleFrom(
+        padding: EdgeInsets.symmetric(vertical: 15)
+      ),
+       child: Text("Continuar",
+       style:TextStyle(
+        color: Colors.black
+       ),),
+       ),
+  );
+}
+
 
   Widget iconAddresClient(){
      return IconButton(

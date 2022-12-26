@@ -49,6 +49,7 @@ dependencies:
   #complementario para obtenr la localización
   location: ^4.2.0
 
+  fluttertoast: ^8.1.2
 
 
 

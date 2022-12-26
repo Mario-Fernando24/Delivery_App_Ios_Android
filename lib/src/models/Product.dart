@@ -62,9 +62,10 @@ class Product {
 
      //hacemos un metodo  que nos ayude a transformar  un array de objeto a una lista de category
     static List<Product> fromJsonList(List<dynamic> jsonList){
-     
+    
       List<Product> toList =[];
       jsonList.forEach((item) {
+     
            Product product =Product.fromJson(item);
            //agregamos a la lista
            toList.add(product);

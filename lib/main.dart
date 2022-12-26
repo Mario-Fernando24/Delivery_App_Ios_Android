@@ -8,6 +8,7 @@ import 'package:ios/src/pages/client/products/address/list/client_addres_list_pa
 import 'package:ios/src/pages/client/products/home/client_home_page.dart';
 import 'package:ios/src/pages/client/products/list/client_product_list_page.dart';
 import 'package:ios/src/pages/client/products/orders/create/client_orders_page.dart';
+import 'package:ios/src/pages/client/products/orders/payments/create/client_payments_create_page.dart';
 import 'package:ios/src/pages/client/products/profile/info/client_profile_info_page.dart';
 import 'package:ios/src/pages/client/products/profile/update/client_profile_update_page.dart';
 import 'package:ios/src/pages/delivery/orders/list/delivery_orders_list_page.dart';
@@ -60,6 +61,7 @@ class _MyAppState extends State<MyApp> {
         GetPage(name: '/client/products/orders', page: ()=>ClientOrdersPage()),
         GetPage(name: '/client/addres/create', page: ()=>ClientAddresCreatePage()),
         GetPage(name: ROUTES.listarAddres, page: ()=>ClientAddresListPage()),  
+        GetPage(name: ROUTES.payments_create, page: ()=>ClientPaymentsCreatePage()),  
         //HOME      
       ],
       theme: ThemeData(
