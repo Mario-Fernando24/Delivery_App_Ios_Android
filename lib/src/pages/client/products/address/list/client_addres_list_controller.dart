@@ -94,6 +94,7 @@ class ClientAddresListController extends GetxController{
 
     if(responseApi.success==true){
      progressDialog.close();
+     GetStorage().remove('bolsa_compra');
 
       Get.toNamed(ROUTES.payments_create);
     }

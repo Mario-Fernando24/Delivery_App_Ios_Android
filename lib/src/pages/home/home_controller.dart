@@ -13,7 +13,12 @@ class HomeController extends GetxController{
 
     //cerramos la session eliminando al usuario del storage 
    void singOut(){
+    //eliminamos del localstorage el usuario y los productos que tiene agregado en el carrito de compra
     GetStorage().remove('user');
+    GetStorage().remove('bolsa_compra');
+    GetStorage().remove('direccion');
+
+
     //eliminando el historial de pantalla
     Get.offNamedUntil('/', (route) => false);
    }
