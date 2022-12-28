@@ -17,13 +17,23 @@ class AddressProviders extends GetConnect{
 
     Future<List<Address>> getByfindId() async {
 
+      print('==============mario============================');
+      print(userSesion.id);
+      
+      print('================mario==========================');
+
       Response response = await get(
-          '$url/getByfind/$userSesion.id',
+          '$url/getByfind/'+userSesion.id.toString(),
           headers: {
             'Content-Type': 'application/json',
             'Authorization': userSesion.session_token ?? ''
           }
       ); 
+
+      print('))))))))))))))))))))))))))))))))))):');
+      print(response.body);
+      
+      print('))))))))))))))))))))))))))))))))))):');
       
       if(response.statusCode==401){
           Get.snackbar("Error", "No tiene permisos");
