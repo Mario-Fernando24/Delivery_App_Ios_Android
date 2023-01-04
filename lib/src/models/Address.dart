@@ -33,8 +33,8 @@ class Address {
         id: json["id"],
         direccion: json["direccion"],
         nombreBarrio: json["nombre_barrio"],
-        lat: json["lat"].toDouble(),
-        lng: json["lng"].toDouble(),
+        lat: json["lat"],
+        lng: json["lng"],
         idUsers: json["id_users"],
     );
 

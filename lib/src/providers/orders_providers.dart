@@ -18,38 +18,34 @@ class OrdersProviders extends GetConnect{
 
 
 
-  //  Future<List<Category>> getAllCategory() async {
-     
-  //    Response response = await get(
-  //       '$url/getAllCategory',
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //         'Authorization': userSesion.session_token ?? ''
-  //       }
-  //   ); 
+    Future<List<Order>> findByStatus(String status) async {
+
     
-  //   if(response.statusCode==401){
-  //       Get.snackbar("Error", "No tiene permisos");
-  //       return [];
-  //   }
-  //   List<Category> categories =Category.fromJsonList(response.body);
-  //   return categories;
-  // }
+      Response response = await get(
+         '$url/findByStatus/'+status,
+         headers: {
+           'Content-Type': 'application/json',
+           'Authorization': userSesion.session_token ?? ''
+         }
+     ); 
+
+   
+    
+     if(response.statusCode==401){
+         Get.snackbar("Error", "No tiene permisos");
+         return [];
+     }
+
+     List<Order> orderss = Order.fromJsonList(response.body);
+     return orderss;
+   }
+
+
+
+
 
  Future<ResponseApi> createOrders(order) async {
 
-
-  // print('lllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllll');
-  //       print(order.idClient);
-  //       print(order.idDireccion);
-  //       print(order.products);
-
-  //     order.products?.forEach((subItem) {
-  //       print(subItem.name);
-  //     });
-        
-
-  // print('ñññññññññññññññññññññññññññññññññññññññññññññññññññññññññññññññññññññññññññ');
 
     Response response = await post(
         '$url/create',

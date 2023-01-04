@@ -4,7 +4,9 @@
 
 import 'dart:convert';
 
+import 'package:ios/src/models/Address.dart';
 import 'package:ios/src/models/Product.dart';
+import 'package:ios/src/models/User.dart';
 
 Order orderFromJson(String str) => Order.fromJson(json.decode(str));
 
@@ -22,7 +24,10 @@ class Order {
     String ?statu;
     int ?timetamp;
     //creamos una lista de producto para enviarle al backe los productos de la orden 
-    List<Product> ?products = [];
+    List<Product> ?produc = [];
+    //creamos una lista de usuario del servicio de orders
+    User? cliente_json;
+    Address? direccion_json;
 
     Order({
         this.id,
@@ -33,7 +38,9 @@ class Order {
         this.lng,
         this.statu,
         this.timetamp,
-        this.products
+        this.produc,
+        this.cliente_json,
+        this.direccion_json
     });
 
 
@@ -43,11 +50,17 @@ class Order {
         idClient: json["id_client"],
         idDomiciliario: json["id_domiciliario"],
         idDireccion: json["id_direccion"],
-        lat: json["lat"].toDouble(),
-        lng: json["lng"].toDouble(),
+        lat: json["lat"],
+        lng: json["lng"],
         statu: json["statu"],
         timetamp: json["timetamp"],
-        products: json["products"],
+        //validamos si la data no llega tipo json o null
+         produc: json["produc"] != null ? List<Product>.from(json["produc"].map((model) => model is Product ? model : Product.fromJson(model))) : [],
+        //preguntamos si viene como un string si no preguntamos si es de tipo users
+        cliente_json: json["cliente_json"] is String ? userFromJson(json["cliente_json"]) : json["cliente_json"] is User ? json["cliente_json"] : User.fromJson(json["cliente_json"] ?? {}),
+        direccion_json: json["direccion_json"] is String ? addressFromJson(json["direccion_json"]) : json["direccion_json"] is Address ? json["direccion_json"] : Address.fromJson(json["direccion_json"] ?? {}),
+
+
     );
 
     Map<String, dynamic> toJson() => {
@@ -59,7 +72,24 @@ class Order {
         "lng": lng,
         "statu": statu,
         "timetamp": timetamp,
-        "products": products,
+        "produc": produc,
+        "cliente_json": cliente_json,
+        "direccion_json": direccion_json,
+
 
     };
+
+
+    static List<Order> fromJsonList(List<dynamic> jsonList){
+     
+      List<Order> toList =[];
+
+      jsonList.forEach((item) {
+  
+           Order orders =Order.fromJson(item);
+           toList.add(orders);
+       });
+
+       return toList;
+    }
 }

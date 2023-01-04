@@ -17,10 +17,6 @@ class AddressProviders extends GetConnect{
 
     Future<List<Address>> getByfindId() async {
 
-      print('==============mario============================');
-      print(userSesion.id);
-      
-      print('================mario==========================');
 
       Response response = await get(
           '$url/getByfind/'+userSesion.id.toString(),
@@ -30,10 +26,7 @@ class AddressProviders extends GetConnect{
           }
       ); 
 
-      print('))))))))))))))))))))))))))))))))))):');
-      print(response.body);
-      
-      print('))))))))))))))))))))))))))))))))))):');
+  
       
       if(response.statusCode==401){
           Get.snackbar("Error", "No tiene permisos");

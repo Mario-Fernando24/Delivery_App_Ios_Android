@@ -61,9 +61,9 @@ class ClientAddresListController extends GetxController{
   }
 
   void createOrders() async {
-    ProgressDialog progressDialog = ProgressDialog(context: context);
+    // ProgressDialog progressDialog = ProgressDialog(context: context);
 
-    progressDialog.show(max: 100, msg: "Creando la orden...");
+    // progressDialog.show(max: 100, msg: "Creando la orden...");
 
      if(GetStorage().read('direccion')!=null){
 
@@ -72,35 +72,33 @@ class ClientAddresListController extends GetxController{
 
     List<Product> products = [];
     if (GetStorage().read('bolsa_compra') is List<Product>) {
-      
+
       products = GetStorage().read('bolsa_compra');
     }
     else {
+
       products = Product.fromJsonList(GetStorage().read('bolsa_compra'));
     }
   
-
     Order order = Order(
-      idClient: userSesion.id,
-      idDireccion: a.id,
-      products: products
+      idClient: userSesion.id.toString(),
+      idDireccion: a.id.toString(),
+      produc: products
     );
-
-   
-
+    
     ResponseApi responseApi = await ordersProviders.createOrders(order);
 
     Fluttertoast.showToast(msg: responseApi.message ?? '', toastLength: Toast.LENGTH_LONG);
 
     if(responseApi.success==true){
-     progressDialog.close();
-     GetStorage().remove('bolsa_compra');
+    //  progressDialog.close();
+    //  GetStorage().remove('bolsa_compra');
 
       Get.toNamed(ROUTES.payments_create);
     }
  
   }else{
-    progressDialog.close();
+    // progressDialog.close();
     Fluttertoast.showToast(msg: 'Por favor escoger una opción de dirección', toastLength: Toast.LENGTH_LONG);
   }
  
