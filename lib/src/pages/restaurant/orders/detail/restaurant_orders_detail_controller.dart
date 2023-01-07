@@ -25,6 +25,7 @@ class RestaurantOrdersDetail extends StatelessWidget {
              _dataDate(),
              _dataClient(),
              _dataDireccion(),
+             _domiciliarioAsignado(),
              totalToPay(context)
             ]
           ),
@@ -107,6 +108,20 @@ class RestaurantOrdersDetail extends StatelessWidget {
           subtitle:Text('${restaurantOdersDetailController.order.cliente_json!.name ?? ''} ${restaurantOdersDetailController.order.cliente_json!.lastname ?? ''}  -  ${restaurantOdersDetailController.order.cliente_json!.phone ?? ''} '),
           trailing: Icon(
             Icons.person
+          ),
+        ),
+      );
+     }
+
+
+       Widget _domiciliarioAsignado(){
+      return Container(
+        margin: EdgeInsets.symmetric(horizontal: 20.0),
+        child: ListTile(
+          title: Text('Domiciliario asignado'),
+          subtitle:Text('${restaurantOdersDetailController.order.domiciliario_json!.name ?? ''} ${restaurantOdersDetailController.order.domiciliario_json!.lastname ?? ''}  -  ${restaurantOdersDetailController.order.domiciliario_json!.phone ?? ''} '),
+          trailing: Icon(
+            Icons.delivery_dining
           ),
         ),
       );
@@ -203,13 +218,13 @@ class RestaurantOrdersDetail extends StatelessWidget {
           return  Column(
               children: [
               Divider(height: 1,color: Colors.grey[400]),
-              Container(
+              restaurantOdersDetailController.order.statu=='PAGADO'? Container(
                 width: double.infinity,
                 alignment: Alignment.centerLeft,
                 margin: EdgeInsets.only(left: 30.0, top: 10),
                 child: Text('ASIGNAR DOMICILIARIO',style: TextStyle(fontStyle: FontStyle.italic, color:miTemaPrincipal, fontWeight: FontWeight.bold ),)
-                ),
-              _dropDownDomiciliario(restaurantOdersDetailController.usuarioDomiciliario),
+                ):Container(),
+             restaurantOdersDetailController.order.statu=='PAGADO'? _dropDownDomiciliario(restaurantOdersDetailController.usuarioDomiciliario):Container(),
               Container(
                 margin: EdgeInsets.only(left:5, top: 25),
                 child: SingleChildScrollView(
@@ -222,7 +237,7 @@ class RestaurantOrdersDetail extends StatelessWidget {
                       fontSize: 13
                     ),),
                           
-                    Container(
+                   restaurantOdersDetailController.order.statu=='PAGADO'? Container(
                       margin: EdgeInsets.symmetric(horizontal: 30),
                       child: ElevatedButton(
                        onPressed: ()=>restaurantOdersDetailController.updateOrdenDespachada(restaurantOdersDetailController.order.id, context),
@@ -233,7 +248,7 @@ class RestaurantOrdersDetail extends StatelessWidget {
                        style: TextStyle(
                         color: Colors.black,fontSize: 13
                        ),)),
-                      )
+                      ):Container()
                      ],
                     ),
                 ),

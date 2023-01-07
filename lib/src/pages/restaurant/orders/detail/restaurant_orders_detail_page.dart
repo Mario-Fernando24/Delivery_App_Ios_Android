@@ -45,20 +45,17 @@ class RestaurantOdersDetailController extends GetxController{
     }
 
    void updateOrdenDespachada(id_orden, BuildContext context) async{
-        // ProgressDialog progressDialog = ProgressDialog(context: context);
+         ProgressDialog progressDialog = ProgressDialog(context: context);
       if(id_usuario!=''){
           Order order = Order(
             id: id_orden,
             idDomiciliario: id_usuario.toString(),);
-            // progressDialog.show(max: 100, msg: "Espere un momento...");
-           print('_________________________________________________________________________');
-           print(order.idDomiciliario);
-           print('_________________________________________________________________________');
-
+         progressDialog.show(max: 100, msg: "Espere un momento...");
+          
      ResponseApi responseApi = await _ordersProviders.updateOrdersDespachada(order);
 
      if(responseApi.success==true){
-        //  progressDialog.close();
+          progressDialog.close();
         Fluttertoast.showToast(msg: responseApi.message ?? '', toastLength: Toast.LENGTH_LONG);
         Get.offNamedUntil('/restaurant/home', (route) => false);
       
