@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:get_storage/get_storage.dart';
 import 'package:ios/src/environment/environment.dart';
+import 'package:ios/src/models/Order.dart';
 import 'package:ios/src/models/User.dart';
 import 'package:ios/src/models/response_api.dart';
 import 'package:path/path.dart';
@@ -155,4 +156,28 @@ class UsersProviders extends GetConnect{
     final response = await request.send();
     return response.stream.transform(utf8.decoder);
   }
+
+
+
+    //Listar los domiciliario (usuario)
+     Future<List<User>> getAllDomiciliario() async {
+     
+     Response response = await get(
+        '$url/findListarDomiciliario',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': userSesion.session_token ?? ''
+        }
+    ); 
+    
+    if(response.statusCode==401){
+        Get.snackbar("Error", "No tiene permisos");
+        return [];
+    }
+     List<User> usuario =User.fromJsonList(response.body);
+    return usuario;
+  }
+
+
+    
 }
