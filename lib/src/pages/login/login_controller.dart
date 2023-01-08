@@ -53,6 +53,9 @@ class LoginController extends GetxController{
                 GetStorage().write('user', responseApi.data);
                    //  Get.snackbar("Login exitoso",responseApi.message ?? '');
                    //  si tiene mas de un rol que lo mande a la pantalla de los roles
+                   print('%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%');
+                   print(responseApi.data["roles"][0]['name']);
+                   print('%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%');
                    if(responseApi.data["roles"].length>1){
                       goToRolesPage();
                     }else if(responseApi.data["roles"][0]['name']=='CLIENTE'){

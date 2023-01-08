@@ -11,6 +11,7 @@ import 'package:ios/src/pages/client/products/orders/create/client_orders_page.d
 import 'package:ios/src/pages/client/products/orders/payments/create/client_payments_create_page.dart';
 import 'package:ios/src/pages/client/products/profile/info/client_profile_info_page.dart';
 import 'package:ios/src/pages/client/products/profile/update/client_profile_update_page.dart';
+import 'package:ios/src/pages/delivery/home/delivery_home_page.dart';
 import 'package:ios/src/pages/delivery/orders/list/delivery_orders_list_page.dart';
 import 'package:ios/src/pages/home/home_page.dart';
 import 'package:ios/src/pages/login/login_page.dart';
@@ -20,6 +21,8 @@ import 'package:ios/src/pages/restaurant/orders/detail/restaurant_orders_detail_
 import 'package:ios/src/pages/restaurant/orders/list/restaurant_orders_list_page.dart';
 import 'package:ios/src/pages/roles/roles_page.dart';
 import 'package:ios/src/utils/theme/style.dart';
+
+import 'src/pages/delivery/orders/detail/delivery_orders_detail_pagee.dart';
 
 
 User myUserSession = User.fromJson(GetStorage().read('user') ?? {});
@@ -55,7 +58,10 @@ class _MyAppState extends State<MyApp> {
         GetPage(name: '/roles', page: ()=>RolesPage()),
         GetPage(name: '/restaurant/home', page: ()=>RestaurantHomePage()),
         GetPage(name: '/restaurant/orders/list', page: ()=>RestaurantOdersListPage()),
+
+        GetPage(name: '/delivery/home', page: ()=>DeliveryHomePage()),
         GetPage(name: '/delivery/orders/list', page: ()=>DeliveryOdersListPage()),
+        GetPage(name: ROUTES.delivery_orders_detail, page: ()=>DeliveryOrdersDetailPage()),
         GetPage(name: ROUTES.restaurant_orders_detail, page: ()=>RestaurantOrdersDetail()),
         GetPage(name: '/client/home', page: ()=>ClientHomePage()),
         GetPage(name: '/client/products/list', page: ()=>ClientProductsListPage()),
