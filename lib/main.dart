@@ -43,6 +43,7 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
+      
       title: "Mario Domicilio",
       debugShowCheckedModeBanner: false,
       //ruta inicial validamos que si el usuario es diferente de null y tiene mas de dos roles que mande para que decida porquenrol desea iniciar sesion

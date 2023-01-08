@@ -27,9 +27,19 @@ class LoginController extends GetxController{
       Get.offNamedUntil('/roles', (route) => false);
    }
 
-  void goToClientHomePage(){
-       Get.offNamedUntil('/client/home', (route) => false);
+  void goToClientHomePage(String route){
+       Get.offNamedUntil(route, (route) => false);
    }
+
+ void goToDomiciliarioHomePage(String route){
+  Get.offNamedUntil(route, (route) => false);
+ }
+
+ void goToRestauranteHomePage(String route){
+    Get.offNamedUntil(route, (route) => false);
+
+ }
+
 
   void login() async{
        String email = emailController.text.trim();
@@ -38,20 +48,24 @@ class LoginController extends GetxController{
         if(isValidFormularioLogin(email, password)){
                ResponseApi responseApi= await  usersProviders.login(email, password);
 
-              print("***************************************************");
-              print(responseApi.data);
-              print("***************************************************");
                if(responseApi.success==true){
               //guardamos los datos del usuario y el token
                 GetStorage().write('user', responseApi.data);
                    //  Get.snackbar("Login exitoso",responseApi.message ?? '');
                    //  si tiene mas de un rol que lo mande a la pantalla de los roles
-              
-                    if(responseApi.data["roles"].length>1){
+                   if(responseApi.data["roles"].length>1){
                       goToRolesPage();
-                    }else{
+                    }else if(responseApi.data["roles"][0]['name']=='CLIENTE'){
                       //si tiene un solo rol que lo mande a client
-                     goToClientHomePage();
+                     goToClientHomePage(responseApi.data["roles"][0]['route']);
+                    }
+                    else if(responseApi.data["roles"][0]['name']=='REPARTIDOR'){
+                      //si tiene un solo rol que lo mande a client
+                     goToDomiciliarioHomePage(responseApi.data["roles"][0]['route']);
+                    }
+                    else if(responseApi.data["roles"][0]['name']=='RESTAURANTE'){
+                      //si tiene un solo rol que lo mande a client
+                     goToRestauranteHomePage(responseApi.data["roles"][0]['route']);
                     }
                }else{
                      Get.snackbar("Login fallido",responseApi.message ?? '');

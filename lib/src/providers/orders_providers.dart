@@ -42,6 +42,29 @@ class OrdersProviders extends GetConnect{
 
 
 
+    //Listar la lista de ordenes del usuario
+    Future<List<Order>> findByStatusDomiciliario(String id_domiciliario,String status) async {
+
+    
+      Response response = await get(
+         '$url/findByDeliveryIdStatus/'+id_domiciliario+'/'+status,
+         headers: {
+           'Content-Type': 'application/json',
+           'Authorization': userSesion.session_token ?? ''
+         }
+     ); 
+    
+     if(response.statusCode==401){
+         Get.snackbar("Error", "No tiene permisos");
+         return [];
+     }
+
+     List<Order> orderss = Order.fromJsonList(response.body);
+     return orderss;
+   }
+
+
+
 
 
  Future<ResponseApi> createOrders(order) async {
