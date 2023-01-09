@@ -23,6 +23,7 @@ import 'package:ios/src/pages/roles/roles_page.dart';
 import 'package:ios/src/utils/theme/style.dart';
 
 import 'src/pages/delivery/orders/detail/delivery_orders_detail_pagee.dart';
+import 'src/pages/delivery/orders/map/delivery_orders_map_page.dart';
 
 
 User myUserSession = User.fromJson(GetStorage().read('user') ?? {});
@@ -62,6 +63,8 @@ class _MyAppState extends State<MyApp> {
         GetPage(name: '/delivery/home', page: ()=>DeliveryHomePage()),
         GetPage(name: '/delivery/orders/list', page: ()=>DeliveryOdersListPage()),
         GetPage(name: ROUTES.delivery_orders_detail, page: ()=>DeliveryOrdersDetailPage()),
+        GetPage(name: '/delivery/orders/map', page: ()=>DeliveryOrderMapPage()),
+
         GetPage(name: ROUTES.restaurant_orders_detail, page: ()=>RestaurantOrdersDetail()),
         GetPage(name: '/client/home', page: ()=>ClientHomePage()),
         GetPage(name: '/client/products/list', page: ()=>ClientProductsListPage()),

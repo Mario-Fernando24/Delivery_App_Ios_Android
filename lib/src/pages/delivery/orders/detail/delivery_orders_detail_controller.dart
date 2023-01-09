@@ -36,24 +36,29 @@ class DeliveryOdersDetailController extends GetxController{
 
    void updateOrdenIniciarEntrega(id_orden, BuildContext context) async{
          ProgressDialog progressDialog = ProgressDialog(context: context);
-          Order order = Order(id: id_orden);
-         progressDialog.show(max: 100, msg: "Iniciando entrega...");
+          Order orderrr = Order(id: id_orden);
+         progressDialog.show(max: 100, msg: "Iniciandno entrega...");
           
-     ResponseApi responseApi = await _ordersProviders.updateOrdersIniciandoEntrega(order);
+     ResponseApi responseApi = await _ordersProviders.updateOrdersIniciandoEntrega(orderrr);
 
      if(responseApi.success==true){
           progressDialog.close();
         Fluttertoast.showToast(msg: responseApi.message ?? '', toastLength: Toast.LENGTH_LONG);
-        Get.offNamedUntil('/delivery/home', (route) => false);
+        Get.toNamed('/delivery/orders/map',arguments: {
+          'order':order.toJson()
+        });
      }else{
         progressDialog.close();
         Fluttertoast.showToast(msg: responseApi.message ?? '', toastLength: Toast.LENGTH_LONG);
      }
-      
-     
+   
+   }
 
-       
-     
+   void goToMapOrders(){
+
+    Get.toNamed('/delivery/orders/map',arguments: {
+          'order':order.toJson()
+        });
    }
 
 

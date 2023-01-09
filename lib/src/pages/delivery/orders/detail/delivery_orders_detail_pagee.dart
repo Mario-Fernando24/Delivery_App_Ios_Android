@@ -173,7 +173,18 @@ class DeliveryOrdersDetailPage extends StatelessWidget {
                       fontSize: 13
                     ),),
                           
-                   deliveryOdersDetailController.order.statu=='DESPACHADO'? Container(
+                   deliveryOdersDetailController.order.statu=='DESPACHADO'? updateOrders(context):deliveryOdersDetailController.order.statu=='EN CAMINO'?goToOrdersMap():Container()
+                     ],
+                    ),
+                ),
+               )
+              ],
+          );
+     }
+
+
+     Widget updateOrders(BuildContext context){
+      return Container(
                       margin: EdgeInsets.symmetric(horizontal: 30),
                       child: ElevatedButton(
                        onPressed: ()=>deliveryOdersDetailController.updateOrdenIniciarEntrega(deliveryOdersDetailController.order.id, context),
@@ -185,13 +196,24 @@ class DeliveryOrdersDetailPage extends StatelessWidget {
                        style: TextStyle(
                         color: Colors.white,fontSize: 13
                        ),)),
-                      ):Container()
-                     ],
-                    ),
-                ),
-               )
-              ],
-          );
+                      );
+     }
+
+
+         Widget goToOrdersMap(){
+                return Container(
+                      margin: EdgeInsets.symmetric(horizontal: 30),
+                      child: ElevatedButton(
+                       onPressed: ()=>deliveryOdersDetailController.goToMapOrders(),
+                       style: ElevatedButton.styleFrom(
+                        padding: EdgeInsets.all(10),
+                        primary: Colors.lightGreenAccent
+                       ),
+                       child: Text('Volver al mapa',
+                       style: TextStyle(
+                        color: Colors.black,fontSize: 13
+                       ),)),
+                      );
      }
 
 

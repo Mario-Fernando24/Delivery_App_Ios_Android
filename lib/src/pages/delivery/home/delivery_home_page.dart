@@ -27,9 +27,7 @@ class _DeliveryHomePageState extends State<DeliveryHomePage> {
         index: restaurantHomeController.indexTab.value,
         children: [
           DeliveryOdersListPage(),
-          RestaurantCategoriesCreatePage(),
-          // RestaurantProductoCreatePage(), 
-          // ClientProfileInfoPage()
+           ClientProfileInfoPage()
         ],
        )
        ),
@@ -54,25 +52,12 @@ class _DeliveryHomePageState extends State<DeliveryHomePage> {
          activeColor: Colors.white,
          inactiveColor: Colors.black,
          ),
-         
-        BottomNavyBarItem(
-         icon:Icon(Icons.category),
-         title: Text("Categorias"),
-         activeColor: Colors.white,
-         inactiveColor: Colors.black,),
-
-        // BottomNavyBarItem(
-        //  icon:Icon(Icons.restaurant),
-        //  title: Text("Productos"),
-        //  activeColor: Colors.white,
-        //  inactiveColor: Colors.black,),
-
-         
-        // BottomNavyBarItem(
-        //  icon:Icon(Icons.person),
-        //  title: Text("Perfil"),
-        //  activeColor: Colors.white,
-        //  inactiveColor: Colors.black,),
+       
+         BottomNavyBarItem(
+          icon:Icon(Icons.person),
+          title: Text("Perfil"),
+          activeColor: Colors.white,
+          inactiveColor: Colors.black,),
       ],
     ),
       );
