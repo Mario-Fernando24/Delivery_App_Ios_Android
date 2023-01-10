@@ -15,7 +15,6 @@ class UsersProviders extends GetConnect{
   String url = Environment.API_URL +'api/users';
   User userSesion = User.fromJson(GetStorage().read('user') ?? {});
 
-
  Future<ResponseApi> login(String email, String passwordd) async {
      
      Response response = await post(
@@ -27,7 +26,7 @@ class UsersProviders extends GetConnect{
           'Content-Type': 'application/json'
         }
     ); 
-    
+   
     //si la respuesta nos trae null muestro este snackbar
     if(response.body==null){
       Get.snackbar("Error", "Hubo un error interno, por favor intentar mas tarde");

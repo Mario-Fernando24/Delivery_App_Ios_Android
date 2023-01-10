@@ -30,6 +30,7 @@ class DeliveryOrderMapController extends GetxController{
   //creamos nuestro constructor
   DeliveryOrderMapController(){
     print('Order=======> mapaaa: ${order.toJson()}');
+
     verificarGPS();//EMPIECE A VERIFICAR SI EL GPS ESTA ACTIVO Y REQUERIR LOS PERMISO
   }
 

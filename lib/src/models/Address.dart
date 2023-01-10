@@ -32,7 +32,7 @@ class Address {
     factory Address.fromJson(Map<String, dynamic> json) => Address(
         id: json["id"],
         direccion: json["direccion"],
-        nombreBarrio: json["nombre_barrio"],
+        nombreBarrio: json["nombreBarrio"],
         lat: json["lat"],
         lng: json["lng"],
         idUsers: json["id_users"],
@@ -41,7 +41,7 @@ class Address {
     Map<String, dynamic> toJson() => {
         "id": id,
         "direccion": direccion,
-        "nombre_barrio": nombreBarrio,
+        "nombreBarrio": nombreBarrio,
         "lat": lat,
         "lng": lng,
         "id_users": idUsers,

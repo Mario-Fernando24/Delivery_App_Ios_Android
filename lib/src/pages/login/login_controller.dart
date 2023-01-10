@@ -45,6 +45,7 @@ class LoginController extends GetxController{
        String email = emailController.text.trim();
        String password = passwordController.text.trim();
 
+
         if(isValidFormularioLogin(email, password)){
                ResponseApi responseApi= await  usersProviders.login(email, password);
 
@@ -53,9 +54,7 @@ class LoginController extends GetxController{
                 GetStorage().write('user', responseApi.data);
                    //  Get.snackbar("Login exitoso",responseApi.message ?? '');
                    //  si tiene mas de un rol que lo mande a la pantalla de los roles
-                   print('%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%');
-                   print(responseApi.data["roles"][0]['name']);
-                   print('%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%');
+                
                    if(responseApi.data["roles"].length>1){
                       goToRolesPage();
                     }else if(responseApi.data["roles"][0]['name']=='CLIENTE'){
@@ -71,6 +70,8 @@ class LoginController extends GetxController{
                      goToRestauranteHomePage(responseApi.data["roles"][0]['route']);
                     }
                }else{
+                
+      
                      Get.snackbar("Login fallido",responseApi.message ?? '');
                }  
                 
