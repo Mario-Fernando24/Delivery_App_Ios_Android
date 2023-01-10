@@ -31,6 +31,9 @@ class DeliveryOrderMapController extends GetxController{
     BitmapDescriptor? domiciliarioMarcador;
     BitmapDescriptor? homeMarcador;
 
+    //
+    StreamSubscription? positionSubcription;
+
 
 
   //creamos nuestro constructor
@@ -66,6 +69,7 @@ class DeliveryOrderMapController extends GetxController{
     //verificar si el gps esta activado
     void verificarGPS()async{
           domiciliarioMarcador = await createMarcadorDeLosAsset('assets/img/delivery_mini.png');
+          // homeMarcador = await createMarcadorDeLosAsset('assets/img/my_location_mini.png');
           homeMarcador = await createMarcadorDeLosAsset('assets/img/my_location_mini.png');
 
        bool isLocationEnable = await Geolocator.isLocationServiceEnabled();
@@ -89,6 +93,23 @@ class DeliveryOrderMapController extends GetxController{
         //añade los marcadores personalizados
         addMarker('Domiciliario', position?.latitude ?? 0.0, position?.longitude ?? 0.0, 'Tu posición', '', domiciliarioMarcador! );
         addMarker('Cliente', order.direccion_json?.lat ?? 0.0, order.direccion_json?.lng ?? 0.0, 'Lugar de entrega', '', homeMarcador! );
+          
+          //se muestre la posicion en tiempo real del domiciliario
+          LocationSettings? locationSettings = LocationSettings(
+            accuracy: LocationAccuracy.best,
+            distanceFilter: 1,
+
+             );
+
+        //traer el mejor rendiemiento en tiempo real 
+        positionSubcription = Geolocator.getPositionStream(
+          locationSettings: locationSettings
+        ).listen(( Position  pos) { 
+          //POSICION EN TIEMPO REAL
+          position=pos;
+          addMarker('Domiciliario', position?.latitude ?? 0.0, position?.longitude ?? 0.0, 'Tu posición', '', domiciliarioMarcador! );
+          
+        });
 
      }catch(e){
       print('errorr==>>$e');
@@ -185,6 +206,15 @@ class DeliveryOrderMapController extends GetxController{
  
         markers[id] = marker;
     }
+
+
+    //dejar de escuchar
+    @override
+  void onClose() {
+    // TODO: implement onClose
+    super.onClose();
+    positionSubcription?.cancel(); 
+  }
 
 
 }

@@ -48,9 +48,8 @@ class LoginController extends GetxController{
 
         if(isValidFormularioLogin(email, password)){
                ResponseApi responseApi= await  usersProviders.login(email, password);
-
                if(responseApi.success==true){
-              //guardamos los datos del usuario y el token
+                //guardamos los datos del usuario y el token
                 GetStorage().write('user', responseApi.data);
                    //  Get.snackbar("Login exitoso",responseApi.message ?? '');
                    //  si tiene mas de un rol que lo mande a la pantalla de los roles

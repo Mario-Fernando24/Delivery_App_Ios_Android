@@ -23,10 +23,12 @@ class UsersProviders extends GetConnect{
           'passwordd': passwordd
         },
         headers: {
+          'Accept': 'application/json',
           'Content-Type': 'application/json'
         }
     ); 
-   
+
+
     //si la respuesta nos trae null muestro este snackbar
     if(response.body==null){
       Get.snackbar("Error", "Hubo un error interno, por favor intentar mas tarde");
