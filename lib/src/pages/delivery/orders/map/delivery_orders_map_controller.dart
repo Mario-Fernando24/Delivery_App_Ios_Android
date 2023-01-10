@@ -26,10 +26,18 @@ class DeliveryOrderMapController extends GetxController{
     //declaramos un observable
     var addessName=''.obs;
 
+    //creamos un mapa de valores para el marcador personalizado
+    Map<MarkerId, Marker> markers = <MarkerId, Marker>{}.obs;
+    BitmapDescriptor? domiciliarioMarcador;
+    BitmapDescriptor? homeMarcador;
+
+
 
   //creamos nuestro constructor
   DeliveryOrderMapController(){
-    print('Order=======> mapaaa: ${order.toJson()}');
+     print('Order=======> mapaaa: ${order.toJson()}');
+
+    //para que se pinte los marcadores como desde la casa donde ira el domiciliario como la posicion de el 
 
     verificarGPS();//EMPIECE A VERIFICAR SI EL GPS ESTA ACTIVO Y REQUERIR LOS PERMISO
   }
@@ -57,6 +65,9 @@ class DeliveryOrderMapController extends GetxController{
 
     //verificar si el gps esta activado
     void verificarGPS()async{
+          domiciliarioMarcador = await createMarcadorDeLosAsset('assets/img/delivery_mini.png');
+          homeMarcador = await createMarcadorDeLosAsset('assets/img/my_location_mini.png');
+
        bool isLocationEnable = await Geolocator.isLocationServiceEnabled();
        //si el gps esta activado actualizamos la localizacion
        if(isLocationEnable==true){
@@ -75,6 +86,9 @@ class DeliveryOrderMapController extends GetxController{
         //ontenemos la longitud y latitud de nuestro dispositivo actual
         position =await Geolocator.getLastKnownPosition();
         animateCameraPosition(position!.latitude, position!.longitude);
+        //añade los marcadores personalizados
+        addMarker('Domiciliario', position?.latitude ?? 0.0, position?.longitude ?? 0.0, 'Tu posición', '', domiciliarioMarcador! );
+        addMarker('Cliente', order.direccion_json?.lat ?? 0.0, order.direccion_json?.lng ?? 0.0, 'Lugar de entrega', '', homeMarcador! );
 
      }catch(e){
       print('errorr==>>$e');
@@ -138,6 +152,38 @@ class DeliveryOrderMapController extends GetxController{
        Navigator.pop(context,data);
       };
 
+    }
+
+
+    Future<BitmapDescriptor> createMarcadorDeLosAsset(String url) async{
+        
+        ImageConfiguration configuration = ImageConfiguration();
+        BitmapDescriptor descriptor = await BitmapDescriptor.fromAssetImage(configuration, url);
+
+        return descriptor;
+
+
+    }
+
+
+    //marcador personalizado
+    void addMarker(
+      String markeId,
+      double lat,
+      double lng,
+      String title,
+      String content,
+      BitmapDescriptor iconMarker
+    ){
+       MarkerId id = MarkerId(markeId);
+       Marker marker = Marker(
+        markerId: id,
+        icon: iconMarker,
+        position: LatLng(lat, lng),
+        infoWindow: InfoWindow(title: title, snippet: content)
+        );
+ 
+        markers[id] = marker;
     }
 
 

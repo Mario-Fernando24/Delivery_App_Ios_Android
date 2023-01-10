@@ -59,10 +59,7 @@ class OrdersProviders extends GetConnect{
          return [];
 
      }
-     print('==========********************************==========');
-     print(response.body);
-     print('==========********************************==========');
-
+    
      List<Order> orderss = Order.fromJsonList(response.body);
      return orderss;
    }

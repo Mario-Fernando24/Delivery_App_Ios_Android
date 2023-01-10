@@ -11,7 +11,7 @@ class DeliveryOrderMapPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
+    return Obx((() =>   Scaffold(
       // appBar: AppBar(
       //   iconTheme: IconThemeData(color: Colors.black),
       //   title: Text('Ubica tu dirección en el mapa',
@@ -37,11 +37,11 @@ class DeliveryOrderMapPage extends StatelessWidget {
               ],
             ),
           ),
-          iconMapLocation(),
+          // iconMapLocation(),
         //  carAdrresDirection(),
         // Spacer(),
       ]),
-    );
+    )));
   }
 
   Widget _googleMaps(){
@@ -55,13 +55,9 @@ class DeliveryOrderMapPage extends StatelessWidget {
       //crea un pequeño punto azul
       myLocationButtonEnabled: false,
       myLocationEnabled: false,
-      onCameraMove: (position){
-        _deliveryOrderMapController.inicialPosition =position;
-      },
-      onCameraIdle: ()async{
-         //llamamos a nuestro controlador cada vez que movamos el marcador se este actualizando
-         await _deliveryOrderMapController.setLocationDraggableInfo();
-      },
+       markers: Set<Marker>.of(_deliveryOrderMapController.markers.values),
+
+     
       
       );
   }
@@ -239,17 +235,17 @@ class DeliveryOrderMapPage extends StatelessWidget {
   //   );
   // }
 
-  Widget iconMapLocation(){
-    return Container(
-      margin: EdgeInsets.only(bottom: 40),
-      child: Center(
-          child:  Image.asset('assets/img/my_location.png',
-          width: 60,
-          height: 60,
-        ),
-      ),
-    );
-  }
+  // Widget iconMapLocation(){
+  //   return Container(
+  //     margin: EdgeInsets.only(bottom: 40),
+  //     child: Center(
+  //         child:  Image.asset('assets/img/my_location.png',
+  //         width: 60,
+  //         height: 60,
+  //       ),
+  //     ),
+  //   );
+  // }
 
   Widget buttonEntregarPedido(BuildContext context){
     return Container(
