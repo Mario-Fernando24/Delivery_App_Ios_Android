@@ -1,7 +1,9 @@
 import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
@@ -97,6 +99,7 @@ class DeliveryOrderMapController extends GetxController{
         );
  
         markers[id] = marker;
+        update();
     }
 
     //verificar si el gps esta activado
@@ -144,7 +147,6 @@ class DeliveryOrderMapController extends GetxController{
         polyline.add(polylinee);
         update();
 
-
     }
 
     void updateLocation() async{
@@ -159,7 +161,7 @@ class DeliveryOrderMapController extends GetxController{
         addMarker('Cliente', order.direccion_json?.lat ?? 0.0, order.direccion_json?.lng ?? 0.0, 'Lugar de entrega', '', homeMarcador! );
 
         //agrego la varible latLng desde hasta
-        LatLng from = LatLng(position!.latitude, position!.latitude);
+        LatLng from = LatLng(position!.latitude, position!.longitude);
         LatLng to = LatLng(order.direccion_json?.lat ?? 0.0, order.direccion_json?.lng ?? 0.0);
         //le paso las variable por parametro
         setPolylines(from, to);
@@ -268,6 +270,21 @@ class DeliveryOrderMapController extends GetxController{
 
 
     }
+
+
+    //centrar la posicion actual del domiciliario
+    void centerPosicion(){
+      if(position!=null){
+                Fluttertoast.showToast(msg: 'cargando posición...' ?? '', toastLength: Toast.LENGTH_LONG);
+
+          animateCameraPosition(position!.latitude , position!.longitude );
+      }
+    }
+
+    void callNumber() async{
+    String number = order.cliente_json?.phone ?? ''; //set the number here
+     await FlutterPhoneDirectCaller.callNumber(number);
+}
 
 
 

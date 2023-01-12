@@ -11,7 +11,8 @@ class DeliveryOrderMapPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Obx((() =>   Scaffold(
+    return GetBuilder<DeliveryOrderMapController>(
+          builder: (value)=>  Scaffold(
       // appBar: AppBar(
       //   iconTheme: IconThemeData(color: Colors.black),
       //   title: Text('Ubica tu dirección en el mapa',
@@ -41,7 +42,7 @@ class DeliveryOrderMapPage extends StatelessWidget {
         //  carAdrresDirection(),
         // Spacer(),
       ]),
-    )));
+    ));
   }
 
   Widget _googleMaps(){
@@ -117,7 +118,7 @@ class DeliveryOrderMapPage extends StatelessWidget {
   Widget _iconCenterMyLocation(){
       
       return GestureDetector(
-        onTap: (){},
+        onTap: ()=>_deliveryOrderMapController.centerPosicion(),
         child: Container(
           alignment: Alignment.centerRight,
           margin: EdgeInsets.symmetric(horizontal: 5),
@@ -210,7 +211,7 @@ class DeliveryOrderMapPage extends StatelessWidget {
                   color: Colors.grey[200]
               ),
               child: IconButton(
-            onPressed: (){},
+            onPressed: () =>  _deliveryOrderMapController.callNumber(),
              icon: Icon(Icons.phone, color: Colors.black,)),
             );
 

@@ -13,7 +13,10 @@
 	<key>NSMicrophoneUsageDescription </key>
 	<string>Necesito permiso para acceder al micrifono del celular</string>
 
-
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+	  <string>tel</string>
+	</array>
 
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
