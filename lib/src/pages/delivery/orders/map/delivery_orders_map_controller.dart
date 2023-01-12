@@ -1,12 +1,16 @@
 import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:ios/src/environment/environment.dart';
 import 'package:ios/src/models/Order.dart';
+import 'package:ios/src/providers/orders_providers.dart';
+import 'package:ios/src/utils/theme/style.dart';
 import 'package:location/location.dart' as location;
 class DeliveryOrderMapController extends GetxController{
 
@@ -31,8 +35,15 @@ class DeliveryOrderMapController extends GetxController{
     BitmapDescriptor? domiciliarioMarcador;
     BitmapDescriptor? homeMarcador;
 
-    //
+    //escuchar evento
     StreamSubscription? positionSubcription;
+
+    //rutas
+    Set<Polyline> polyline = <Polyline>{}.obs;
+    List<LatLng> points = [];
+
+
+    OrdersProviders ordersProviders = OrdersProviders();
 
 
 
@@ -66,6 +77,28 @@ class DeliveryOrderMapController extends GetxController{
 
     }
 
+    
+
+    //marcador personalizado
+    void addMarker(
+      String markeId,
+      double lat,
+      double lng,
+      String title,
+      String content,
+      BitmapDescriptor iconMarker
+    ){
+       MarkerId id = MarkerId(markeId);
+       Marker marker = Marker(
+        markerId: id,
+        icon: iconMarker,
+        position: LatLng(lat, lng),
+        infoWindow: InfoWindow(title: title, snippet: content)
+        );
+ 
+        markers[id] = marker;
+    }
+
     //verificar si el gps esta activado
     void verificarGPS()async{
           domiciliarioMarcador = await createMarcadorDeLosAsset('assets/img/delivery_mini.png');
@@ -84,15 +117,53 @@ class DeliveryOrderMapController extends GetxController{
        }
     }
 
+    //desde donde queremos trazar la ruta y hasta donde 
+    Future<void> setPolylines(LatLng from, LatLng to)async{
+
+      PointLatLng pointFrom = PointLatLng(from.latitude, from.longitude);
+      PointLatLng pointTo = PointLatLng(to.latitude, to.longitude);
+      PolylineResult result = await PolylinePoints().getRouteBetweenCoordinates(Environment.API_KEY_MAP, pointFrom, pointTo);
+
+     //recorremos la lista que nos trae result entre las dos puntos
+      for(PointLatLng point in result.points){
+        //agrego cada uno de los puntos
+         points.add(LatLng(point.latitude, point.longitude));
+      }
+
+      //creamos un objeto polyline
+      Polyline polylinee = Polyline(
+        polylineId: PolylineId('poly'),
+        //color con el que se trazara la ruta
+        color: miTemaPrincipal,
+        //los puntos que vamos a trazar
+        points: points,
+        //ancho de la ruta que se trazara
+        width: 5
+        );
+
+        polyline.add(polylinee);
+        update();
+
+
+    }
+
     void updateLocation() async{
      try{
         await _determinePosition();
         //ontenemos la longitud y latitud de nuestro dispositivo actual
         position =await Geolocator.getLastKnownPosition();
+        saveLocationDomiciliarioLatLng();
         animateCameraPosition(position!.latitude, position!.longitude);
         //añade los marcadores personalizados
         addMarker('Domiciliario', position?.latitude ?? 0.0, position?.longitude ?? 0.0, 'Tu posición', '', domiciliarioMarcador! );
         addMarker('Cliente', order.direccion_json?.lat ?? 0.0, order.direccion_json?.lng ?? 0.0, 'Lugar de entrega', '', homeMarcador! );
+
+        //agrego la varible latLng desde hasta
+        LatLng from = LatLng(position!.latitude, position!.latitude);
+        LatLng to = LatLng(order.direccion_json?.lat ?? 0.0, order.direccion_json?.lng ?? 0.0);
+        //le paso las variable por parametro
+        setPolylines(from, to);
+
           
           //se muestre la posicion en tiempo real del domiciliario
           LocationSettings? locationSettings = LocationSettings(
@@ -114,6 +185,18 @@ class DeliveryOrderMapController extends GetxController{
      }catch(e){
       print('errorr==>>$e');
      }
+ }
+
+ void saveLocationDomiciliarioLatLng()async{
+
+  if(position!=null){
+   order.lat=position!.latitude;
+   order.lng = position!.longitude;
+   await ordersProviders.updatePosicionDomiciliarioLatLng(order);
+  }
+
+
+
  }
   
   //recibimos la lat and long
@@ -186,26 +269,6 @@ class DeliveryOrderMapController extends GetxController{
 
     }
 
-
-    //marcador personalizado
-    void addMarker(
-      String markeId,
-      double lat,
-      double lng,
-      String title,
-      String content,
-      BitmapDescriptor iconMarker
-    ){
-       MarkerId id = MarkerId(markeId);
-       Marker marker = Marker(
-        markerId: id,
-        icon: iconMarker,
-        position: LatLng(lat, lng),
-        infoWindow: InfoWindow(title: title, snippet: content)
-        );
- 
-        markers[id] = marker;
-    }
 
 
     //dejar de escuchar

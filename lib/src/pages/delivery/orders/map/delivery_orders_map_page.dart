@@ -56,6 +56,8 @@ class DeliveryOrderMapPage extends StatelessWidget {
       myLocationButtonEnabled: false,
       myLocationEnabled: false,
        markers: Set<Marker>.of(_deliveryOrderMapController.markers.values),
+       //llamamos para que se pinte la ruta
+       polylines: _deliveryOrderMapController.polyline,
 
      
       

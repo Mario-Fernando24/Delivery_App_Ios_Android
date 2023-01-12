@@ -68,7 +68,12 @@ class DeliveryOrdersDetailPage extends StatelessWidget {
                   fontSize: 14.0
                 ),),
                 SizedBox(height: 3.0),
-                Text('Cantidad: ${product.quantity ?? ''}',style: TextStyle(fontSize: 12.0),),
+                Row(
+                  children: [
+                    Text('Cantidad: ${product.quantity ?? ''}',style: TextStyle(fontSize: 12.0),),
+                    Text('\$ ${product.price ?? ''}',style: TextStyle(fontSize: 12.0),),
+                  ],
+                ),
               ],
              ),
           ],

@@ -152,6 +152,35 @@ class OrdersProviders extends GetConnect{
     }
 
 
+       Future<ResponseApi> updatePosicionDomiciliarioLatLng(Order order) async {
+
+      Response response = await put(
+          '$url/updatePosicionDomiciliarioLatLng',
+          order.toJson(),
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': userSesion.session_token ?? ''
+          }
+      ); 
+
+    
+      if(response.body==null){
+      Get.snackbar("Error", "No se pudo despachar la orden, tuvo algun error");
+        return ResponseApi();
+      }
+      if(response.statusCode==401){
+        Get.snackbar("Error", "No esta autorizado para realizar este petición");
+        return ResponseApi();
+      }
+      else{
+          //creamos un objeto
+          ResponseApi responseApi = ResponseApi.fromJson(response.body);
+          return responseApi;
+
+      }
+    }
+
+
     
 
 
