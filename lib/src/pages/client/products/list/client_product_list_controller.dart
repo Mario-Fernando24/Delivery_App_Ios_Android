@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -14,6 +16,9 @@ class ClientProductsListController extends GetxController{
     
     CategoryProviders categoryProviders = CategoryProviders();
     ProductsProviders productsProviders = ProductsProviders();
+    //buscar producto 
+    var productName=''.obs;
+    Timer? searchOnStoppedTyping;
 
    
       var item =0.obs;
@@ -39,10 +44,27 @@ class ClientProductsListController extends GetxController{
           getCategories();
         }
 
+
         void goToOrdersCreate(){
           Get.toNamed('/client/products/orders');
         }
+           
+        //texto digitado por el usuario para buscar por nombre
+        void onChangeText(String text){
 
+              const duration = Duration(milliseconds: 800);
+              if (searchOnStoppedTyping != null) {
+                searchOnStoppedTyping?.cancel();
+              }
+
+              searchOnStoppedTyping = Timer(duration, () {
+                productName.value = text;
+                print('TEXTO COMPLETO: ${text}');
+              });
+
+            
+
+        }
         //listar todas las categorias
         void getCategories() async{
           var result = await categoryProviders.getAllCategory();
@@ -52,9 +74,12 @@ class ClientProductsListController extends GetxController{
         }
 
 
-        Future<List<Product>> getProducts(String idcategory) async{
-           return await productsProviders.findByProductWithCategory(idcategory);
-           
+        Future<List<Product>> getProducts(String idcategory, String productName) async{
+            if(productName.isEmpty){
+                return await productsProviders.findByProductWithCategory(idcategory);
+            }else{
+                return await productsProviders.findByProductSearch(idcategory,productName);
+            }  
         }
 
 

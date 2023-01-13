@@ -58,7 +58,7 @@ class _ClientProductsListPageState extends State<ClientProductsListPage> {
           children:clientProductsListController.categoriess.map((Category category){
             return FutureBuilder(
               //future es donde vamos a pasar el metodo que nos trae la data
-              future: clientProductsListController.getProducts(category.id ?? '26'),
+              future: clientProductsListController.getProducts(category.id ?? '26',clientProductsListController.productName.value),
               builder: (context, AsyncSnapshot<List<Product>> snapshot){
                 //preguntamos si viene informacion en la data
                 if(snapshot.hasData){
@@ -205,6 +205,7 @@ class _ClientProductsListPageState extends State<ClientProductsListPage> {
       child: Container(
         width: MediaQuery.of(context).size.width*0.76,
         child: TextField(
+          onChanged: clientProductsListController.onChangeText,
           decoration: InputDecoration(
             hintText: 'Buscar producto',
             suffixIcon: Icon(Icons.search, 

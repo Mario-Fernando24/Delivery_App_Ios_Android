@@ -15,13 +15,30 @@ class ProductsProviders extends GetConnect{
   User userSesion = User.fromJson(GetStorage().read('user') ?? {});
 
 
+  //ME RETORNA UNA LISTA DE PRODUCTO, LE ENVIO POR PARAMETRO EL ID DE LA CATEGORIA
+    Future<List<Product>> findByProductSearch(String idcategory, String name) async {
+
+      Response response = await get(
+          '$url/findByProductSearch/$idcategory/$name',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': userSesion.session_token ?? ''
+          }
+      ); 
+
+      
+      if(response.statusCode==401){
+          Get.snackbar("Error", "No tiene permisos");
+          return [];
+      }
+      List<Product> products =Product.fromJsonList(response.body!);
+      return products;
+      
+    }
 
   //ME RETORNA UNA LISTA DE PRODUCTO, LE ENVIO POR PARAMETRO EL ID DE LA CATEGORIA
     Future<List<Product>> findByProductWithCategory(String idcategory) async {
-      
-      // print("::::::::::::::::::::::::::::::::::::::");
-      // print(idcategory);
-      // print(":::::::::::::::::::::::::::::::::::::::");
+
       Response response = await get(
           '$url/findByProducts/$idcategory',
           headers: {
