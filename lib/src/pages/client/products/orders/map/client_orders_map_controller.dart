@@ -154,7 +154,7 @@ class ClientOrderMapController extends GetxController{
         await _determinePosition();
         //ontenemos la longitud y latitud de nuestro dispositivo actual
         position =await Geolocator.getLastKnownPosition();
-        saveLocationDomiciliarioLatLng();
+        // saveLocationDomiciliarioLatLng();
         animateCameraPosition(order.lat ?? 0, order.lng ?? 0);
         //añade los marcadores personalizados
         addMarker('Domiciliario', order.lat ?? 0.0, order.lng ?? 0.0, 'Tu Domiciliario', '', domiciliarioMarcador! );
@@ -170,17 +170,17 @@ class ClientOrderMapController extends GetxController{
      }
  }
 
- void saveLocationDomiciliarioLatLng()async{
+//  void saveLocationDomiciliarioLatLng()async{
 
-  if(position!=null){
-   order.lat=position!.latitude;
-   order.lng = position!.longitude;
-   await ordersProviders.updatePosicionDomiciliarioLatLng(order);
-  }
+//   if(position!=null){
+//    order.lat=position!.latitude;
+//    order.lng = position!.longitude;
+//    await ordersProviders.updatePosicionDomiciliarioLatLng(order);
+//   }
 
 
 
- }
+//  }
   
   //recibimos la lat and long
   Future animateCameraPosition(double lat, double lgt) async{

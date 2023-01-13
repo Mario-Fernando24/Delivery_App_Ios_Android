@@ -176,11 +176,15 @@ class _ClientProductsListPageState extends State<ClientProductsListPage> {
               top: 12,
               child: 
                Container(
+               
                   width: 17,
                   height: 17,
                   alignment: Alignment.center,
-                  child: Text('${clientProductsListController.item.value}',style: TextStyle(fontSize: 12.0,
-                  ),) ,
+                  child: GestureDetector(
+                    onTap:  ()=>clientProductsListController.goToOrdersCreate(),
+                    child: Text('${clientProductsListController.item.value}',style: TextStyle(fontSize: 12.0,
+                    ),),
+                  ) ,
                   decoration: BoxDecoration(
                      color: Colors.white,
                      borderRadius: BorderRadius.all(Radius.circular(30.0))
