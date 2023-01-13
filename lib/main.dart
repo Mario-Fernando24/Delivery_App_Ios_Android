@@ -8,6 +8,9 @@ import 'package:ios/src/pages/client/products/address/list/client_addres_list_pa
 import 'package:ios/src/pages/client/products/home/client_home_page.dart';
 import 'package:ios/src/pages/client/products/list/client_product_list_page.dart';
 import 'package:ios/src/pages/client/products/orders/create/client_orders_page.dart';
+import 'package:ios/src/pages/client/products/orders/detail/client_orders_detail_pagee.dart';
+import 'package:ios/src/pages/client/products/orders/list/client_orders_list_page.dart';
+import 'package:ios/src/pages/client/products/orders/map/client_orders_map_page.dart';
 import 'package:ios/src/pages/client/products/orders/payments/create/client_payments_create_page.dart';
 import 'package:ios/src/pages/client/products/profile/info/client_profile_info_page.dart';
 import 'package:ios/src/pages/client/products/profile/update/client_profile_update_page.dart';
@@ -72,7 +75,16 @@ class _MyAppState extends State<MyApp> {
         GetPage(name: '/client/profile/update', page: ()=>ClientProfileUpdatePage()),
         GetPage(name: '/client/products/orders', page: ()=>ClientOrdersPage()),
         GetPage(name: '/client/addres/create', page: ()=>ClientAddresCreatePage()),
+        GetPage(name: '/client/orders/list', page: ()=>ClientOdersListPage()),
+        GetPage(name: ROUTES.client_orders_detail, page: ()=>ClientOrdersDetailPage()),
+        GetPage(name: '/client/orders/map', page: ()=>ClientOrderMapPage()),
+
+
+
+
+
         GetPage(name: ROUTES.listarAddres, page: ()=>ClientAddresListPage()),  
+        
         GetPage(name: ROUTES.payments_create, page: ()=>ClientPaymentsCreatePage()),  
         //HOME      
       ],

@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ios/src/models/Order.dart';
-import 'package:ios/src/pages/delivery/orders/list/delivery_orders_list_controller.dart';
+import 'package:ios/src/pages/client/products/orders/list/client_orders_list_controller.dart';
 import 'package:ios/src/utils/relative_time_util.dart';
 import 'package:ios/src/utils/theme/style.dart';
 import 'package:ios/src/widget/no_data_widget.dart';
 
-class DeliveryOdersListPage extends StatelessWidget {
+class ClientOdersListPage extends StatelessWidget {
   
-   DeliveryOdersListController deliveryOdersListController = Get.put(DeliveryOdersListController());
+   ClientOdersPedidoListController _clientOdersPedidoListController = Get.put(ClientOdersPedidoListController());
 
   @override
   
@@ -16,7 +16,7 @@ class DeliveryOdersListPage extends StatelessWidget {
   Widget build(BuildContext context) {
      return Obx(()=> DefaultTabController(
       //para mostrar cuantas tipos de orden voy a mostrar
-      length: deliveryOdersListController.status.length,
+      length: _clientOdersPedidoListController.status.length,
        child: Scaffold(
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(50),
@@ -26,10 +26,10 @@ class DeliveryOdersListPage extends StatelessWidget {
               indicatorColor:miTemaPrincipal,
               labelColor: Colors.black,
              unselectedLabelColor: Colors.white,
-              tabs: List<Widget>.generate(deliveryOdersListController.status.length, 
+              tabs: List<Widget>.generate(_clientOdersPedidoListController.status.length, 
               (index) {
                 return Tab(
-                  child: Text(deliveryOdersListController.status[index]),
+                  child: Text(_clientOdersPedidoListController.status[index]),
                 );
               }),
 
@@ -37,10 +37,10 @@ class DeliveryOdersListPage extends StatelessWidget {
           ),
         ),
          body: TabBarView(
-          children:deliveryOdersListController.status.map((String status){
+          children:_clientOdersPedidoListController.status.map((String status){
             return FutureBuilder(
               //future es donde vamos a pasar el metodo que nos trae la data
-              future: deliveryOdersListController.getOrders(status),
+              future: _clientOdersPedidoListController.getOrders(status),
               builder: (context, AsyncSnapshot<List<Order>> snapshot){
                 //preguntamos si viene informacion en la data
                 if(snapshot.hasData){
@@ -62,7 +62,8 @@ class DeliveryOdersListPage extends StatelessWidget {
                 }else{
                   return Center(child: NoDataWidget(text: 'No hay ordenes disponibles',));
                 }
-               }
+              }
+              
               );
           }).toList()
           )
@@ -73,7 +74,7 @@ class DeliveryOdersListPage extends StatelessWidget {
   Widget _cardOrders(Order order, BuildContext context) {
 
       return GestureDetector(
-        onTap: ()=> deliveryOdersListController.goToDetailOrden(order),
+        onTap: ()=> _clientOdersPedidoListController.goToDetailOrden(order),
         child: Container(
           margin: EdgeInsets.only(left: 20, right: 20, top: 10),
           height: 150.0,
@@ -125,7 +126,9 @@ class DeliveryOdersListPage extends StatelessWidget {
                             margin: EdgeInsets.only(top: 5.0),
                             width: double.infinity,
                             alignment: Alignment.centerLeft,
-                            child: Text('Cliente: ${order.cliente_json?.name }  ${order.cliente_json?.lastname }'  )
+                            child: Text('Domiciliario:  ${ order.domiciliario_json?.name!=null? order.domiciliario_json?.name: 'No asignado'  }  ${order.domiciliario_json?.lastname !=null? order.domiciliario_json?.lastname :'' }' 
+                            ,style: order.domiciliario_json?.name!=null? TextStyle(color: Colors.black, fontWeight: FontWeight.w400  ):TextStyle(color: Colors.red, fontWeight: FontWeight.w400  ) )
+                            
                             ),
                     
                             Container(

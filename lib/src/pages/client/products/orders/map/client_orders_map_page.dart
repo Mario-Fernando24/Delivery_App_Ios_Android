@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:ios/src/pages/client/products/address/map/client_address_map_controller.dart';
+import 'package:ios/src/pages/client/products/orders/map/client_orders_map_controller.dart';
 import 'package:ios/src/pages/delivery/orders/map/delivery_orders_map_controller.dart';
 import 'package:ios/src/utils/theme/style.dart';
 
-class DeliveryOrderMapPage extends StatelessWidget {
+class ClientOrderMapPage extends StatelessWidget {
 
-   DeliveryOrderMapController _deliveryOrderMapController = Get.put(DeliveryOrderMapController());
+   ClientOrderMapController clientOrderMapController = Get.put(ClientOrderMapController());
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<DeliveryOrderMapController>(
+    return GetBuilder<ClientOrderMapController>(
           builder: (value)=>  Scaffold(
       // appBar: AppBar(
       //   iconTheme: IconThemeData(color: Colors.black),
@@ -20,7 +20,7 @@ class DeliveryOrderMapPage extends StatelessWidget {
       // ),
       body: Stack(children: [
         Container(
-          height: MediaQuery.of(context).size.height*0.6,
+          height: MediaQuery.of(context).size.height*0.63,
           child: _googleMaps()
           ),
           SafeArea(
@@ -49,16 +49,16 @@ class DeliveryOrderMapPage extends StatelessWidget {
     //retornamos googlemap de flutter
     return GoogleMap(
       //Inicia camera donde estara la posicion inicial
-      initialCameraPosition: _deliveryOrderMapController.inicialPosition,
+      initialCameraPosition: clientOrderMapController.inicialPosition,
       //tipo de mapa
       mapType: MapType.normal,
-      onMapCreated: _deliveryOrderMapController.onMapCreate,
+      onMapCreated: clientOrderMapController.onMapCreate,
       //crea un pequeño punto azul
       myLocationButtonEnabled: false,
       myLocationEnabled: false,
-       markers: Set<Marker>.of(_deliveryOrderMapController.markers.values),
+       markers: Set<Marker>.of(clientOrderMapController.markers.values),
        //llamamos para que se pinte la ruta
-       polylines: _deliveryOrderMapController.polyline,
+       polylines: clientOrderMapController.polyline,
 
      
       
@@ -83,7 +83,7 @@ class DeliveryOrderMapPage extends StatelessWidget {
   Widget _cardOrderInfo(BuildContext context){
 
      return Container(
-      height: MediaQuery.of(context).size.height*0.4,
+      height: MediaQuery.of(context).size.height*0.37,
       width: double.infinity,
       decoration: BoxDecoration(
          color: Colors.white,
@@ -104,11 +104,10 @@ class DeliveryOrderMapPage extends StatelessWidget {
       child: SingleChildScrollView(
         child: Column(
           children: [
-             _listTitleAddres(_deliveryOrderMapController.order.direccion_json?.direccion ?? '', 'Dirección',Icons.my_location),
-             _listTitleAddres(_deliveryOrderMapController.order.direccion_json?.nombreBarrio ?? '', 'Barrio',Icons.location_on),
+             _listTitleAddres(clientOrderMapController.order.direccion_json?.direccion ?? '', 'Dirección',Icons.my_location),
+             _listTitleAddres(clientOrderMapController.order.direccion_json?.nombreBarrio ?? '', 'Barrio',Icons.location_on),
              Divider(color: Colors.black, endIndent: 30.0,indent: 30.0),
-             infoClient(),
-             buttonEntregarPedido(context)
+             infoDomiciliario(),
           ],
         ),
       ),
@@ -118,7 +117,7 @@ class DeliveryOrderMapPage extends StatelessWidget {
   Widget _iconCenterMyLocation(){
       
       return GestureDetector(
-        onTap: ()=>_deliveryOrderMapController.centerPosicion(),
+        onTap: ()=>clientOrderMapController.centerPosicion(),
         child: Container(
           alignment: Alignment.centerRight,
           margin: EdgeInsets.symmetric(horizontal: 5),
@@ -158,11 +157,12 @@ class DeliveryOrderMapPage extends StatelessWidget {
 
   }
 
-  Widget infoClient(){
+  Widget infoDomiciliario(){
      
      return Container(
-      margin: EdgeInsets.only(top: 1.0, right: 33.0,left: 33.0),
+      margin: EdgeInsets.only(top: 6.0, right: 33.0,left: 33.0),
       child: Row(
+       mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
             _imageClient(),
             nameClient(),
@@ -180,8 +180,8 @@ class DeliveryOrderMapPage extends StatelessWidget {
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(14),
                 child: FadeInImage(
-                  image: _deliveryOrderMapController.order.cliente_json?.image!=null ?
-                  NetworkImage(_deliveryOrderMapController.order.cliente_json?.image ?? '')
+                  image: clientOrderMapController.order.domiciliario_json?.image!=null ?
+                  NetworkImage(clientOrderMapController.order.domiciliario_json?.image ?? '')
                   : AssetImage('assets/img/no-image.png') as ImageProvider,
                   fit: BoxFit.cover,
                   fadeInDuration: Duration(milliseconds: 50),
@@ -197,7 +197,7 @@ class DeliveryOrderMapPage extends StatelessWidget {
 
        return Container(
         margin: EdgeInsets.only(left: 10.0),
-        child: Text('${_deliveryOrderMapController.order.cliente_json?.name ?? ''} ${_deliveryOrderMapController.order.cliente_json?.lastname ?? ''} '),
+        child: Text('${clientOrderMapController.order.domiciliario_json?.name ?? ''} ${clientOrderMapController.order.domiciliario_json?.lastname ?? ''} '),
        );
      }
 
@@ -211,7 +211,7 @@ class DeliveryOrderMapPage extends StatelessWidget {
                   color: Colors.grey[200]
               ),
               child: IconButton(
-            onPressed: () =>  _deliveryOrderMapController.callNumber(),
+            onPressed: () =>  clientOrderMapController.callNumber(),
              icon: Icon(Icons.phone, color: Colors.black,)),
             );
  
@@ -230,7 +230,7 @@ class DeliveryOrderMapPage extends StatelessWidget {
   //         borderRadius: BorderRadius.circular(20)),
   //         child: Container(
   //           padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-  //           child: Text(''+_deliveryOrderMapController.addessName.value,style: TextStyle(color: Colors.white,
+  //           child: Text(''+clientOrderMapController.addessName.value,style: TextStyle(color: Colors.white,
   //           fontSize: 14,
   //           fontWeight: FontWeight.bold),),
   //         ),
@@ -250,25 +250,25 @@ class DeliveryOrderMapPage extends StatelessWidget {
   //   );
   // }
 
-  Widget buttonEntregarPedido(BuildContext context){
-    return Container(
-      padding: EdgeInsets.all(10.0),
-      width: double.infinity,
-      margin: EdgeInsets.only(left: 30.0, right: 30.0),
-      child: ElevatedButton(
-        child: Text('ENTREGAR PEDIDO',style: TextStyle(
-          color: Colors.black,
-        ),),
-        style: ElevatedButton.styleFrom(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20)
-          ),
-          padding: EdgeInsets.all(15)
-        ),
-        onPressed: ()=> _deliveryOrderMapController.seleccionarPuntoReferencia(context),
+  // Widget buttonEntregarPedido(BuildContext context){
+  //   return Container(
+  //     padding: EdgeInsets.all(10.0),
+  //     width: double.infinity,
+  //     margin: EdgeInsets.only(left: 30.0, right: 30.0),
+  //     child: ElevatedButton(
+  //       child: Text('ENTREGAR PEDIDO',style: TextStyle(
+  //         color: Colors.black,
+  //       ),),
+  //       style: ElevatedButton.styleFrom(
+  //         shape: RoundedRectangleBorder(
+  //           borderRadius: BorderRadius.circular(20)
+  //         ),
+  //         padding: EdgeInsets.all(15)
+  //       ),
+  //       onPressed: ()=> clientOrderMapController.seleccionarPuntoReferencia(context),
     
-        ),
-    );
-  }
+  //       ),
+  //   );
+  // }
 
 }

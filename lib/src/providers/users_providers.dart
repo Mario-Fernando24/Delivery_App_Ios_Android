@@ -23,7 +23,6 @@ class UsersProviders extends GetConnect{
           'passwordd': passwordd
         },
         headers: {
-          'Accept': 'application/json',
           'Content-Type': 'application/json'
         }
     ); 

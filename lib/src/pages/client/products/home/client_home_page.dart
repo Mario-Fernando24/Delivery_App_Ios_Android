@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:ios/src/pages/client/products/home/client_home_controller.dart';
-import 'package:ios/src/pages/client/products/list/client_product_list_controller.dart';
 import 'package:get/get.dart';
 import 'package:ios/src/pages/client/products/list/client_product_list_page.dart';
+import 'package:ios/src/pages/client/products/orders/list/client_orders_list_page.dart';
 import 'package:ios/src/pages/client/products/profile/info/client_profile_info_page.dart';
-import 'package:ios/src/pages/delivery/orders/list/delivery_orders_list_page.dart';
-import 'package:ios/src/pages/restaurant/orders/list/restaurant_orders_list_page.dart';
 import 'package:ios/src/utils/custom_animated_bottom_bar.dart';
 import 'package:ios/src/utils/theme/style.dart';
 
@@ -27,7 +25,7 @@ class _ClientHomePageState extends State<ClientHomePage> {
         index: clientHomeController.indexTab.value,
         children: [
           ClientProductsListPage(),
-          DeliveryOdersListPage(), 
+          ClientOdersListPage(), 
           ClientProfileInfoPage()
         ],
        )

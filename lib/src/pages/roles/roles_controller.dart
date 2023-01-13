@@ -8,7 +8,6 @@ class RolesController extends GetxController{
 
       //traer los roles asignados de ese usuario
      User user = User.fromJson(GetStorage().read('user') ?? {});
- 
     //funcion para enviar la ruta de los roles
     void goToPageRol(Rol rol){
        print("mariooooo${rol.route}");
