@@ -15,8 +15,27 @@ class ClientProductsListController extends GetxController{
     CategoryProviders categoryProviders = CategoryProviders();
     ProductsProviders productsProviders = ProductsProviders();
 
+   
+      var item =0.obs;
+      List<Product> selectProducts =[];
+
       //inicializo la funcion en el constructor
        ClientProductsListController() {
+
+    
+      if(GetStorage().read('bolsa_compra')!=null){
+       //validar si gestorage es una list de producto
+       if(GetStorage().read('bolsa_compra') is List<Product>){
+         selectProducts=GetStorage().read('bolsa_compra');
+       }else{
+          selectProducts=Product.fromJsonList(GetStorage().read('bolsa_compra'));
+       }
+          item.value=0;
+          selectProducts.forEach((p) {
+              item.value=item.value+(p.quantity!);
+          });
+     }
+
           getCategories();
         }
 

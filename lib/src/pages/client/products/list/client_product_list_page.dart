@@ -165,10 +165,37 @@ class _ClientProductsListPageState extends State<ClientProductsListPage> {
     return SafeArea(
       child: Container(
         margin: EdgeInsets.only(left: 10),
-        child: IconButton(onPressed: ()=>clientProductsListController.goToOrdersCreate(),
-         icon: Icon(Icons.shopping_bag_outlined,
-         size: 35,)
-         ),
+        child: clientProductsListController.item.value>0 ?  Stack(
+          children: [
+            IconButton(onPressed: ()=>clientProductsListController.goToOrdersCreate(),
+             icon: Icon(Icons.shopping_bag_outlined,
+             size: 33,)
+             ),
+             Positioned(
+              right: 7,
+              top: 12,
+              child: 
+               Container(
+                  width: 17,
+                  height: 17,
+                  alignment: Alignment.center,
+                  child: Text('${clientProductsListController.item.value}',style: TextStyle(fontSize: 12.0,
+                  ),) ,
+                  decoration: BoxDecoration(
+                     color: Colors.white,
+                     borderRadius: BorderRadius.all(Radius.circular(30.0))
+                  ),
+             ),
+            )
+          ],
+        ):  Stack(
+          children: [
+            IconButton(onPressed: ()=>clientProductsListController.goToOrdersCreate(),
+             icon: Icon(Icons.shopping_bag_outlined,
+             size: 33,)
+             ),
+          ],
+        ) ,
       ),
     );
   }

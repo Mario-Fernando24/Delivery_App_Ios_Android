@@ -4,9 +4,14 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:ios/src/environment/routes.dart';
 import 'package:ios/src/models/Product.dart';
+import 'package:ios/src/pages/client/products/list/client_product_list_controller.dart';
 
 class ClientOrdersController extends GetxController{
    
+
+      //obtengo a todos los metodos de ese controlador
+   ClientProductsListController clientProductsListController = Get.find();
+
    var selectProducts =<Product>[].obs;
    //para obtener el valor total type double
    var total=0.0.obs;
@@ -51,6 +56,11 @@ class ClientOrdersController extends GetxController{
          //llamamos al GetStorage para guardar el json de producto en el storage
          GetStorage().write('bolsa_compra', selectProducts);
          getTotal();
+
+            clientProductsListController.item.value=0;
+             selectProducts.forEach((p) {
+              clientProductsListController.item.value=clientProductsListController.item.value+(p.quantity!);
+             });
     }
 
 
@@ -70,6 +80,14 @@ class ClientOrdersController extends GetxController{
          //llamamos al GetStorage para guardar el json de producto en el storage
          GetStorage().write('bolsa_compra', selectProducts);
          getTotal();
+          
+          
+              clientProductsListController.item.value=0;
+
+             selectProducts.forEach((p) {
+              clientProductsListController.item.value=clientProductsListController.item.value+(p.quantity!);
+             });
+
          }
     }
 
@@ -78,7 +96,15 @@ class ClientOrdersController extends GetxController{
       selectProducts.remove(product);
       GetStorage().write('bolsa_compra', selectProducts);
       getTotal();
-      
+      if(selectProducts.length==0){
+          clientProductsListController.item.value=0;
+      }else{
+          clientProductsListController.item.value=0;
+          selectProducts.forEach((p) {
+          clientProductsListController.item.value=clientProductsListController.item.value+(p.quantity!);
+          });
+      }
+     
     }
 
     void getTotal(){

@@ -2,11 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:ios/src/models/Product.dart';
+import 'package:ios/src/pages/client/products/list/client_product_list_controller.dart';
 
 class ClientProductsDetailController extends GetxController{  
 
    List<Product> selectProducts =[];
-
+   
+   //obtengo a todos los metodos de ese controlador
+   ClientProductsListController clientProductsListController = Get.find();
+    
    ClientProductsDetailController(){}
     
     void verificarIfProductAgregados(Product product, var price, var counter){
@@ -60,7 +64,13 @@ class ClientProductsDetailController extends GetxController{
              print("=======================================================");
               }
                GetStorage().write('bolsa_compra', selectProducts);
-              toaShow("Producto agregado","correctamente",2);  
+              toaShow("Producto agregado","correctamente",2); 
+       
+              clientProductsListController.item.value=0;
+
+              selectProducts.forEach((p) {
+              clientProductsListController.item.value=clientProductsListController.item.value+(p.quantity!);
+             });
 
        }else{
         toaShow("Advertencia","debes seleccionar un item para agregarlo",1);  
@@ -72,12 +82,14 @@ class ClientProductsDetailController extends GetxController{
     print("PRODUCTO AGREGADO MARIO: ${product.toJson()} ");
     counter.value=counter.value+1;
     price.value=product.price!* counter.value;
+
    }
    //metodo para remover un item y actualizar el precio
     void removeItem(Product product, var price, var counter){
       if(counter.value>0){
         counter.value=counter.value-1;
         price.value=product.price!* counter.value;
+
       }
 
 
