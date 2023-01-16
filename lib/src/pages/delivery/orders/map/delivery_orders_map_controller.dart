@@ -14,7 +14,14 @@ import 'package:ios/src/models/Order.dart';
 import 'package:ios/src/providers/orders_providers.dart';
 import 'package:ios/src/utils/theme/style.dart';
 import 'package:location/location.dart' as location;
+import 'package:socket_io_client/socket_io_client.dart';
 class DeliveryOrderMapController extends GetxController{
+
+  //creamos una variable de tipo socket
+  Socket socket = io('${Environment.API_URL}orders/delivery', <String, dynamic>{
+       'transports': ['websocket'],
+       'autoConnect': false
+  });
 
  //obtengo por parametro la orden 
   Order order = Order.fromJson(Get.arguments['order']);
@@ -52,10 +59,20 @@ class DeliveryOrderMapController extends GetxController{
   //creamos nuestro constructor
   DeliveryOrderMapController(){
      print('Order=======> mapaaa: ${order.toJson()}');
-
     //para que se pinte los marcadores como desde la casa donde ira el domiciliario como la posicion de el 
-
     verificarGPS();//EMPIECE A VERIFICAR SI EL GPS ESTA ACTIVO Y REQUERIR LOS PERMISO
+    connectAndListen();
+  }
+
+  //
+  void connectAndListen(){
+    //que se conecte a socket io
+     socket.connect();
+     //que empiece a escuchar los cambios
+     socket.onConnect((data){
+          print('ESTE DISPOSITIVO SE CONECTO A SOCKET IO');
+     });
+    
   }
 
     //establecer el nombre de la direccion cuando arrastramos el map
@@ -294,6 +311,8 @@ class DeliveryOrderMapController extends GetxController{
     // TODO: implement onClose
     super.onClose();
     positionSubcription?.cancel(); 
+    //cuando salimos de la pantalla le decimos al socket que se desconecte
+    socket.disconnect();
   }
 
 
