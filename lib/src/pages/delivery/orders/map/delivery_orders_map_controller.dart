@@ -71,8 +71,17 @@ class DeliveryOrderMapController extends GetxController{
      //que empiece a escuchar los cambios
      socket.onConnect((data){
           print('ESTE DISPOSITIVO SE CONECTO A SOCKET IO');
-     });
-    
+     }); 
+  }
+ 
+ //emitir la posicion en tiempo real con socket
+  void emitPosition(){
+    //le enviamos 3 datos id_orden, latitud y longitud
+      socket.emit('position',{
+          'id_order': order.id,
+          'lat': position!.latitude,
+          'lng': position!.longitude,
+      });
   }
 
     //establecer el nombre de la direccion cuando arrastramos el map
@@ -95,6 +104,8 @@ class DeliveryOrderMapController extends GetxController{
          }
 
     }
+
+
 
     
 
@@ -198,8 +209,10 @@ class DeliveryOrderMapController extends GetxController{
           //POSICION EN TIEMPO REAL
           position=pos;
           addMarker('Domiciliario', position?.latitude ?? 0.0, position?.longitude ?? 0.0, 'Tu posición', '', domiciliarioMarcador! );
-          
+          //cada ves que se actualice que envie estos datos a socket
+          emitPosition();
         });
+      //ojo  animateCameraPosition(lat, lgt)
 
      }catch(e){
       print('errorr==>>$e');
