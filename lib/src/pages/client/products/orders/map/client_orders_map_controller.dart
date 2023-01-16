@@ -14,10 +14,16 @@ import 'package:ios/src/models/Order.dart';
 import 'package:ios/src/providers/orders_providers.dart';
 import 'package:ios/src/utils/theme/style.dart';
 import 'package:location/location.dart' as location;
+import 'package:socket_io_client/socket_io_client.dart';
 class ClientOrderMapController extends GetxController{
 
  //obtengo por parametro la orden 
   Order order = Order.fromJson(Get.arguments['order']);
+
+  Socket socket = io('${Environment.API_URL}orders/delivery', <String, dynamic>{
+       'transports': ['websocket'],
+       'autoConnect': false
+  });
 
   //para inicializar el mapa en una posicion inicial cercana
   CameraPosition inicialPosition = CameraPosition(
@@ -51,11 +57,30 @@ class ClientOrderMapController extends GetxController{
 
   //creamos nuestro constructor
   ClientOrderMapController(){
-     print('Order=======> mapaaa clienteeeeeeeeeeeeeea: ${order.toJson()}');
-
+    //  print('Order=======> mapaaa clienteeeeeeeeeeeeeea: ${order.toJson()}');
     //para que se pinte los marcadores como desde la casa donde ira el domiciliario como la posicion de el 
-
     verificarGPS();//EMPIECE A VERIFICAR SI EL GPS ESTA ACTIVO Y REQUERIR LOS PERMISO
+    connectAndListen();
+  }
+
+   void connectAndListen(){
+    //que se conecte a socket io
+     socket.connect();
+     //que empiece a escuchar los cambios
+     socket.onConnect((data){
+          print('ESTE DISPOSITIVO SE CONECTO A SOCKET IO cliente');
+     }); 
+     listenPosition();
+  }
+
+
+  //escuchar los cambios
+  void listenPosition(){
+    //escuchamos los cambios en esa ruta que nos emite el backend
+    socket.on('position/${order.id}', (data) => {
+      //Nos regresa la data y llamamos la funcion addMarker para que se vuelva a redibuar en el mapa
+        addMarker('Domiciliario', data['lat'] ?? 0.0, data['lng'] ?? 0.0, 'Tu Domiciliario', '', domiciliarioMarcador! ),         
+    });
   }
 
     //establecer el nombre de la direccion cuando arrastramos el map
@@ -275,7 +300,11 @@ class ClientOrderMapController extends GetxController{
     // TODO: implement onClose
     super.onClose();
     positionSubcription?.cancel(); 
+     //cuando salimos de la pantalla le decimos al socket que se desconecte
+    socket.disconnect();
   }
+
+
 
 
 }

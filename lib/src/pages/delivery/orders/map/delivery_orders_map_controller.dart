@@ -11,6 +11,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:ios/src/environment/environment.dart';
 import 'package:ios/src/models/Order.dart';
+import 'package:ios/src/models/response_api.dart';
 import 'package:ios/src/providers/orders_providers.dart';
 import 'package:ios/src/utils/theme/style.dart';
 import 'package:location/location.dart' as location;
@@ -51,6 +52,10 @@ class DeliveryOrderMapController extends GetxController{
     Set<Polyline> polyline = <Polyline>{}.obs;
     List<LatLng> points = [];
 
+    //CALCULAR CUANTA DISTANCIA EN METROS EXISTE ENTRE PUNTO A Y B
+    double distencePunto= 0.0;
+    bool isClose = false;
+
 
     OrdersProviders ordersProviders = OrdersProviders();
 
@@ -83,6 +88,9 @@ class DeliveryOrderMapController extends GetxController{
           'lng': position!.longitude,
       });
   }
+
+
+
 
     //establecer el nombre de la direccion cuando arrastramos el map
     Future setLocationDraggableInfo() async{
@@ -211,6 +219,8 @@ class DeliveryOrderMapController extends GetxController{
           addMarker('Domiciliario', position?.latitude ?? 0.0, position?.longitude ?? 0.0, 'Tu posición', '', domiciliarioMarcador! );
           //cada ves que se actualice que envie estos datos a socket
           emitPosition();
+           //calculando la distancia cada ves que se mueve
+          isCloseToDeliveryPosition();
         });
       //ojo  animateCameraPosition(lat, lgt)
 
@@ -327,6 +337,44 @@ class DeliveryOrderMapController extends GetxController{
     //cuando salimos de la pantalla le decimos al socket que se desconecte
     socket.disconnect();
   }
+
+    
+    //distamcia entre punto a y b
+    void isCloseToDeliveryPosition(){
+      if(position!=null){
+
+     
+      distencePunto= Geolocator.distanceBetween(
+        position!.latitude, position!.longitude, 
+        order.direccion_json!.lat! , order.direccion_json!.lng!);
+         
+         print('#############################################################################################');
+         print(distencePunto);
+         print('#############################################################################################');
+         //200 METROS
+        if(distencePunto<=200 && isClose==false){
+             isClose= true;
+             //si esta cerca que actualice la pantalla
+             update();
+        }
+      }
+    }
+
+    //finalizar entrega
+    void actualizarDomiciliarioFinalizarEntrega()async{
+
+
+         if(distencePunto<=200){
+              ResponseApi responseApi = await ordersProviders.updateToFinalizarEntregaDelivery(order);
+              Fluttertoast.showToast(msg: responseApi.message ?? '', toastLength: Toast.LENGTH_LONG);
+
+              if(responseApi.success==true){
+                       Get.offNamedUntil('/delivery/home', (route) => false);
+              }
+         }else{
+          Get.snackbar('operación no permitida', 'Debes estar mas cerca de la posicion del pedido');
+         }
+    }
 
 
 }

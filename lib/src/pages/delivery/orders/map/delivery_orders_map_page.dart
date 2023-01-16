@@ -9,6 +9,7 @@ class DeliveryOrderMapPage extends StatelessWidget {
 
    DeliveryOrderMapController _deliveryOrderMapController = Get.put(DeliveryOrderMapController());
 
+
   @override
   Widget build(BuildContext context) {
     return GetBuilder<DeliveryOrderMapController>(
@@ -256,7 +257,8 @@ class DeliveryOrderMapPage extends StatelessWidget {
       width: double.infinity,
       margin: EdgeInsets.only(left: 30.0, right: 30.0),
       child: ElevatedButton(
-        child: Text('ENTREGAR PEDIDO',style: TextStyle(
+        child: Text('ENTREGAR PEDIDO'
+        .toString(),style: TextStyle(
           color: Colors.black,
         ),),
         style: ElevatedButton.styleFrom(
@@ -265,8 +267,7 @@ class DeliveryOrderMapPage extends StatelessWidget {
           ),
           padding: EdgeInsets.all(15)
         ),
-        onPressed: ()=> _deliveryOrderMapController.seleccionarPuntoReferencia(context),
-    
+        onPressed: _deliveryOrderMapController.isClose == true ? () => _deliveryOrderMapController.actualizarDomiciliarioFinalizarEntrega(): null
         ),
     );
   }
