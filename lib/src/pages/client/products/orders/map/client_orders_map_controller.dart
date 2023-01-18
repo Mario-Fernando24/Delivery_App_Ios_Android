@@ -71,6 +71,8 @@ class ClientOrderMapController extends GetxController{
           print('ESTE DISPOSITIVO SE CONECTO A SOCKET IO cliente');
      }); 
      listenPosition();
+     //escuchar algun evento del domiciliario
+     listenToDomiciliario();
   }
 
 
@@ -80,6 +82,15 @@ class ClientOrderMapController extends GetxController{
     socket.on('position/${order.id}', (data) => {
       //Nos regresa la data y llamamos la funcion addMarker para que se vuelva a redibuar en el mapa
         addMarker('Domiciliario', data['lat'] ?? 0.0, data['lng'] ?? 0.0, 'Tu Domiciliario', '', domiciliarioMarcador! ),         
+    });
+  }
+
+  //escuchar el evento cuando un domiciliario presiono el boton de entregar para salir de la pantalla
+  void listenToDomiciliario(){
+    //escuchamos los cambios en esa ruta que nos emite el backend
+    socket.on('delivered/${order.id}', (data) => {
+         Fluttertoast.showToast(msg: "La orden se actualizo a entregado",toastLength: Toast.LENGTH_LONG),
+        Get.offNamedUntil('/delivery/home', (route) => false),
     });
   }
 

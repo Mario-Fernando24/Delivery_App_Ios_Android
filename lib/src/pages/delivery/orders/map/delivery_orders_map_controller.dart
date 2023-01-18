@@ -75,7 +75,7 @@ class DeliveryOrderMapController extends GetxController{
      socket.connect();
      //que empiece a escuchar los cambios
      socket.onConnect((data){
-          print('ESTE DISPOSITIVO SE CONECTO A SOCKET IO');
+     print('ESTE DISPOSITIVO SE CONECTO A SOCKET IO');
      }); 
   }
  
@@ -86,6 +86,14 @@ class DeliveryOrderMapController extends GetxController{
           'id_order': order.id,
           'lat': position!.latitude,
           'lng': position!.longitude,
+      });
+  }
+
+   //una vez el proceso termino mandamos este emit para que salga de la pantalla del cliente
+   void emitToDomiciliario(){
+    //le enviamos 3 datos id_orden, latitud y longitud
+      socket.emit('delivered',{
+          'id_order': order.id
       });
   }
 
@@ -369,7 +377,9 @@ class DeliveryOrderMapController extends GetxController{
               Fluttertoast.showToast(msg: responseApi.message ?? '', toastLength: Toast.LENGTH_LONG);
 
               if(responseApi.success==true){
-                       Get.offNamedUntil('/delivery/home', (route) => false);
+                //mando emit con socket
+                emitToDomiciliario();
+                Get.offNamedUntil('/client/home', (route) => false);
               }
          }else{
           Get.snackbar('operación no permitida', 'Debes estar mas cerca de la posicion del pedido');
