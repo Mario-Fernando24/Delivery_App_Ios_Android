@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:ios/src/models/Category.dart';
@@ -46,7 +47,11 @@ class ClientProductsListController extends GetxController{
 
 
         void goToOrdersCreate(){
-          Get.toNamed('/client/products/orders');
+            if(item>0){
+                 Get.toNamed('/client/products/orders');
+            }else{
+              Fluttertoast.showToast(msg: "No tiene producto en el carrito");
+            }
         }
            
         //texto digitado por el usuario para buscar por nombre

@@ -15,6 +15,7 @@ class DeliveryOdersListController extends GetxController{
   // llamar la listas de las orden por status
   Future<List<Order>> getOrders(String status)async{
 
+ 
        return await ordersProviders.findByStatusDomiciliario(userSesion.id.toString() ?? '0',status);
        
   }
