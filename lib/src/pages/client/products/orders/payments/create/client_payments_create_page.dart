@@ -4,6 +4,7 @@ import 'package:flutter_credit_card/credit_card_model.dart';
 import 'package:flutter_credit_card/credit_card_widget.dart';
 import 'package:flutter_credit_card/glassmorphism_config.dart';
 import 'package:get/get.dart';
+import 'package:ios/src/models/mercado_pago_document_type.dart';
 import 'package:ios/src/pages/client/products/orders/payments/create/client_payments_create_controller.dart';
 import 'package:ios/src/utils/theme/style.dart';
 
@@ -114,6 +115,9 @@ class _ClientPaymentsCreatePageState extends State<ClientPaymentsCreatePage> {
   
                         ),
                 ),
+
+                _dropDownTypeDocument(_clientPaymentsController.docu),
+                _documentsNumber()
                 
                
         ],
@@ -138,4 +142,68 @@ class _ClientPaymentsCreatePageState extends State<ClientPaymentsCreatePage> {
        ),
   );
 }
+
+
+
+
+      Widget _dropDownTypeDocument(List<MercadoPagoDocumentType> documents) {
+      
+          return Container(
+            padding: EdgeInsets.symmetric(horizontal: 50),
+            margin: EdgeInsets.only(top: 15),
+            child: DropdownButton(
+              underline: Container(
+                alignment: Alignment.centerRight,
+                child: Icon(
+                  Icons.arrow_drop_down_circle,
+                  color: Colors.amber,
+                ),
+              ),
+              elevation: 3,
+              isExpanded: true,
+              hint: Text(
+                'Seleccionar tipo de documento',
+                style: TextStyle(
+                  fontSize: 15
+                ),
+              ),
+              items: _dropdownMenuItem(documents),
+              value: _clientPaymentsController.idDocumento.value == '' ? null : _clientPaymentsController.idDocumento.value,
+              onChanged: (option) {
+                print('Opcion seleccionada ${option}');
+                _clientPaymentsController.idDocumento.value = option.toString();
+              },
+            ),
+          );
+        }
+
+      List<DropdownMenuItem<String>> _dropdownMenuItem(List<MercadoPagoDocumentType> documents){
+        List<DropdownMenuItem<String>> list =[];
+        documents.forEach((docum) {
+              list.add(DropdownMenuItem(
+                child: Text(docum.name ?? ''),
+                value: docum.id,
+                ));
+        });
+
+        return list;
+      }
+
+
+      Widget _documentsNumber(){
+          return Container(
+            margin: EdgeInsets.symmetric(horizontal: 37, vertical:10),
+            child: TextField(
+              controller: _clientPaymentsController.documentsNumberController,
+              keyboardType: TextInputType.phone,
+              decoration: InputDecoration(
+                hintText: 'Numero de documento',
+                prefixIcon: Icon(Icons.description)
+              ),
+            ),
+          );
+}
+
+
+
 }

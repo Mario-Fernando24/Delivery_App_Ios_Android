@@ -17,7 +17,7 @@ class CategoryProviders extends GetConnect{
 
 //METODO PARA LISTAR TODAS LAS CATEGORIAS 
 //ME RETORNA UNA LISTA DE CATEGORIAS
-   Future<List<Category>> getAllCategory() async {
+   Future<List<Category>> getAllCategory() async {  
      
      Response response = await get(
         '$url/getAllCategory',

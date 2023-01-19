@@ -54,7 +54,9 @@ class _MyAppState extends State<MyApp> {
       title: "Mario Domicilio",
       debugShowCheckedModeBanner: false,
       //ruta inicial validamos que si el usuario es diferente de null y tiene mas de dos roles que mande para que decida porquenrol desea iniciar sesion
-      initialRoute: myUserSession.id!='null' ? myUserSession.roles!.length >1 ?'/roles' : '/client/home':'',
+      // initialRoute: myUserSession.id!='null' ? myUserSession.roles!.length >1 ?'/roles' : '/client/home':'',
+      initialRoute:ROUTES.payments_create,
+      
       getPages: [
         GetPage(name: '/', page: ()=>LoginPage()),
         GetPage(name: '/register', page: ()=>RegisterPage()),
