@@ -18,10 +18,13 @@ class ClientPaymentsCreatePage extends StatefulWidget {
 }
 
 class _ClientPaymentsCreatePageState extends State<ClientPaymentsCreatePage> {
+
      ClientPaymentsController _clientPaymentsController = Get.put(ClientPaymentsController());
+     
 
   @override
   Widget build(BuildContext context) {
+    
     return Obx(()=> Scaffold(
       bottomNavigationBar:  _buttonNext(context),
       body: ListView(children: [
@@ -96,7 +99,7 @@ class _ClientPaymentsCreatePageState extends State<ClientPaymentsCreatePage> {
                           expiryDateDecoration: const InputDecoration(
                             suffixIcon:  Icon(Icons.date_range),
                             labelText: 'Expiración',
-                            hintText: 'XX/XX',
+                            hintText: 'MM/YY',
                           ),
                           cvvCodeDecoration: const InputDecoration(
                             suffixIcon:  Icon(Icons.lock),
@@ -131,7 +134,7 @@ class _ClientPaymentsCreatePageState extends State<ClientPaymentsCreatePage> {
     height: 50,
     margin: EdgeInsets.symmetric(horizontal: 30,vertical: 30),
     child: ElevatedButton(
-      onPressed: ()=>(){},
+      onPressed: ()=>_clientPaymentsController.createCardToken(),
       style: ElevatedButton.styleFrom(
         padding: EdgeInsets.symmetric(vertical: 15)
       ),

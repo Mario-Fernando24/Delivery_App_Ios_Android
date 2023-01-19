@@ -58,7 +58,7 @@ class _MyAppState extends State<MyApp> {
       initialRoute:ROUTES.payments_create,
       
       getPages: [
-        GetPage(name: '/', page: ()=>LoginPage()),
+        GetPage(name: '/', page: ()=>LoginPage()), 
         GetPage(name: '/register', page: ()=>RegisterPage()),
         GetPage(name: '/home', page: ()=>HomePage()),
         GetPage(name: '/roles', page: ()=>RolesPage()),

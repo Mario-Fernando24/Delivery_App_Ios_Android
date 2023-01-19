@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_credit_card/credit_card_model.dart';
 import 'package:get/get.dart';
+import 'package:ios/src/models/mercado_pago_card_token.dart';
 import 'package:ios/src/models/mercado_pago_document_type.dart';
 import 'package:ios/src/providers/mercado_pago_providers.dart';
 
@@ -18,11 +19,11 @@ class ClientPaymentsController extends GetxController{
       var cardHolderName=''.obs;
       var cvvCode=''.obs;
       var isCvvFocused=false.obs;
+      var idDocumento = ''.obs;
 
       GlobalKey<FormState> formKey =GlobalKey();
 
 
-      var idDocumento = ''.obs;
 
 
       MercadoPagoProviders mercadoPagoProviders = MercadoPagoProviders();
@@ -40,10 +41,71 @@ class ClientPaymentsController extends GetxController{
        cardNumber.value = creditCardModel.cardNumber;
        expiryDate.value = creditCardModel.expiryDate;
        cardHolderName.value = creditCardModel.cardHolderName;
-       cardNumber.value = creditCardModel.cardNumber;
        cvvCode.value = creditCardModel.cvvCode;
        isCvvFocused.value = creditCardModel.isCvvFocused;
 
+  }
+
+
+  //crear el token de mercado pago para hacer la transaccion
+  void createCardToken() async {
+    String documentNumber = documentsNumberController.text;
+
+    if(isValidForm(documentNumber)){
+
+      //para que no se vaya con espacio el numero de la tarjeta
+      cardNumber.value = cardNumber.value.replaceAll(RegExp(' '), '');
+      List<String> list = expiryDate.split('/');
+      
+      //obtengo el mes
+      int moth = int.parse(list[0]);
+      //obtengo el año
+      String year = '20${list[1]}';
+
+       MercadoPagoCardToken mercadoPagoCardToken = await mercadoPagoProviders.createCardToken(
+         cardNumber:  cardNumber.value,
+         expirationYear: year,
+         expirationMonth: moth,
+         cardHolderName: cardHolderName.value,
+         cvv: cvvCode.value,
+         documentId: idDocumento.value,
+         documentNumber: documentNumber
+       );
+
+       print('MERCADO PAGO: ${mercadoPagoCardToken.toJson()}');
+
+    }
+  }
+
+
+  bool isValidForm(String documentNumber){
+     
+     if(cardNumber.value.isEmpty){
+      Get.snackbar("Formulario no valido", "Ingrese el numero de la tarjeta");
+      return false;
+     }
+     if(expiryDate.value.isEmpty){
+      Get.snackbar("Formulario no valido", "Ingrese el numero de la tarjeta");
+      return false;
+     }
+      if(cardHolderName.value.isEmpty){
+      Get.snackbar("Formulario no valido", "Ingrese elnombre del titular");
+      return false;
+     }
+      if(cvvCode.value.isEmpty){
+      Get.snackbar("Formulario no valido", "Ingrese el codigo de seguridad");
+      return false;
+     }
+      if(idDocumento.value.isEmpty){
+      Get.snackbar("Formulario no valido", "Slecciona el tipo de documento");
+      return false;
+     }
+     if(documentNumber.isEmpty){
+      Get.snackbar("Formulario no valido", "Ingrese su numero de documento");
+      return false;
+     }
+     
+     return true;
   }
 
 

@@ -2,13 +2,10 @@ class MercadoPagoCardHolder {
 
   //NOMBRE
   String? name;
-
   //NUMERO DE IDENTIFICACION
   int? number;
-
   //SUBTIPO DE IDENTIFICACION
   String? subtype;
-
   //TIPO DE IDENTIFICACION
   String? type;
 
