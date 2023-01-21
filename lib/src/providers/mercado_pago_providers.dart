@@ -2,6 +2,8 @@ import 'package:get/get.dart';
 import 'package:ios/src/environment/environment.dart';
 import 'package:ios/src/models/mercado_pago_card_token.dart';
 import 'package:ios/src/models/mercado_pago_document_type.dart';
+import 'package:ios/src/models/mercado_pago_payment_method.dart';
+import 'package:ios/src/models/mercado_pago_payment_method_installments.dart';
 
 class MercadoPagoProviders extends GetConnect{
 
@@ -24,6 +26,40 @@ class MercadoPagoProviders extends GetConnect{
     List<MercadoPagoDocumentType> documents =MercadoPagoDocumentType.fromJsonList(response.body);
     return documents;
   }
+
+
+
+   //obtener el numero de cuota de la tarjeta ingresada recibimos la cantidad de cuotas que queremos y bin los primeros 6 digitos de la tqrjeta
+    Future<MercadoPagoPaymentMethodInstallments> getNumCuota(String bin, double amount) async {  
+     
+        Response response = await get(
+            '$url/payment_methods/installments',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': 'Bearer ${Environment.ACCESS_TOKEN}' ?? ''
+            },
+            query: {
+              'bin': bin,
+              'amount': '${amount}'
+            }
+        ); 
+
+     
+    if(response.statusCode==401){
+        Get.snackbar("Error", "No tiene permisos");
+        return MercadoPagoPaymentMethodInstallments();
+    }
+
+     if(response.statusCode!=200){
+        Get.snackbar("Error", "No se pudo obtener las cuotas de la tarjetas");
+        return MercadoPagoPaymentMethodInstallments();
+    }
+    MercadoPagoPaymentMethodInstallments data =MercadoPagoPaymentMethodInstallments.fromJson(response.body[0]);
+   print('MARIO FERNANDO MU====>: ${data.toJson()}');
+    
+    return data;
+  }
+
 
 
    //creamos el pago de pago
@@ -56,9 +92,10 @@ class MercadoPagoProviders extends GetConnect{
         },
         headers: {
           'Content-Type': 'application/json',
+
         }
     ); 
-
+   print('========================>${response.statusCode}');
     if(response.statusCode != 201){
        Get.snackbar('Error', 'No se pudo validar la tarjeta');
        return MercadoPagoCardToken();

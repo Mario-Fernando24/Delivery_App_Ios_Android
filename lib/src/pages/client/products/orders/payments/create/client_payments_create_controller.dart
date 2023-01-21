@@ -71,8 +71,20 @@ class ClientPaymentsController extends GetxController{
          documentId: idDocumento.value,
          documentNumber: documentNumber
        );
+       
+       if(mercadoPagoCardToken.status=='active'){
 
-       print('MERCADO PAGO: ${mercadoPagoCardToken.toJson()}');
+               print('MERCADO PAGO: ${mercadoPagoCardToken.toJson()}');
+
+            Get.toNamed('/client/orders/payments/numcuota',arguments: {
+                              'card_token': mercadoPagoCardToken.toJson()
+                            });
+
+       }
+
+                
+
+
 
     }
   }
@@ -81,32 +93,49 @@ class ClientPaymentsController extends GetxController{
   bool isValidForm(String documentNumber){
      
      if(cardNumber.value.isEmpty){
-      Get.snackbar("Formulario no valido", "Ingrese el numero de la tarjeta");
+      snackbarShow("Formulario no valido", "Ingrese el numero de la tarjeta");
       return false;
      }
      if(expiryDate.value.isEmpty){
-      Get.snackbar("Formulario no valido", "Ingrese el numero de la tarjeta");
+      snackbarShow("Formulario no valido", "Ingrese el numero de la tarjeta");
       return false;
      }
       if(cardHolderName.value.isEmpty){
-      Get.snackbar("Formulario no valido", "Ingrese elnombre del titular");
-      return false;
+        snackbarShow("Formulario no valido", "Ingrese elnombre del titular");
+        return false;
      }
       if(cvvCode.value.isEmpty){
-      Get.snackbar("Formulario no valido", "Ingrese el codigo de seguridad");
+      snackbarShow("Formulario no valido", "Ingrese el codigo de seguridad");
       return false;
      }
       if(idDocumento.value.isEmpty){
-      Get.snackbar("Formulario no valido", "Slecciona el tipo de documento");
-      return false;
+         snackbarShow("Formulario no valido", "Slecciona el tipo de documento");
+         return false;
      }
      if(documentNumber.isEmpty){
-      Get.snackbar("Formulario no valido", "Ingrese su numero de documento");
-      return false;
+        snackbarShow("Formulario no valido", "Ingrese su numero de documento");
+        return false;
      }
      
      return true;
   }
+
+   void snackbarShow(String title,String subtitle){
+       Get.snackbar(
+          title,
+          subtitle,
+          icon: Icon(Icons.warning, color: Colors.white),
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.amber,
+          borderRadius: 20,
+          margin: EdgeInsets.all(15),
+          colorText: Colors.black,
+          duration: Duration(seconds: 3),
+          isDismissible: true,
+          forwardAnimationCurve: Curves.bounceInOut,
+        ); 
+   }
+
 
 
   

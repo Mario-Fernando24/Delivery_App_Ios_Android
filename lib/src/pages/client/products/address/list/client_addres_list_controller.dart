@@ -61,10 +61,12 @@ class ClientAddresListController extends GetxController{
   }
 
   void createOrders() async {
+         Get.toNamed(ROUTES.payments_create);
+
     // ProgressDialog progressDialog = ProgressDialog(context: context);
 
     // progressDialog.show(max: 100, msg: "Creando la orden...");
-
+/*
      if(GetStorage().read('direccion')!=null){
 
      Address a = Address.fromJson(GetStorage().read('direccion'));
@@ -101,6 +103,7 @@ class ClientAddresListController extends GetxController{
     // progressDialog.close();
     Fluttertoast.showToast(msg: 'Por favor escoger una opción de dirección', toastLength: Toast.LENGTH_LONG);
   }
+  **///
  
  }
 

@@ -12,6 +12,7 @@ import 'package:ios/src/pages/client/products/orders/detail/client_orders_detail
 import 'package:ios/src/pages/client/products/orders/list/client_orders_list_page.dart';
 import 'package:ios/src/pages/client/products/orders/map/client_orders_map_page.dart';
 import 'package:ios/src/pages/client/products/orders/payments/create/client_payments_create_page.dart';
+import 'package:ios/src/pages/client/products/orders/payments/num_cuotas_payments/client_payments_numcuotas_page.dart';
 import 'package:ios/src/pages/client/products/profile/info/client_profile_info_page.dart';
 import 'package:ios/src/pages/client/products/profile/update/client_profile_update_page.dart';
 import 'package:ios/src/pages/delivery/home/delivery_home_page.dart';
@@ -54,8 +55,7 @@ class _MyAppState extends State<MyApp> {
       title: "Mario Domicilio",
       debugShowCheckedModeBanner: false,
       //ruta inicial validamos que si el usuario es diferente de null y tiene mas de dos roles que mande para que decida porquenrol desea iniciar sesion
-      // initialRoute: myUserSession.id!='null' ? myUserSession.roles!.length >1 ?'/roles' : '/client/home':'',
-      initialRoute:ROUTES.payments_create,
+       initialRoute: myUserSession.id!='null' ? myUserSession.roles!.length >1 ?'/roles' : '/client/home':'',
       
       getPages: [
         GetPage(name: '/', page: ()=>LoginPage()), 
@@ -82,12 +82,10 @@ class _MyAppState extends State<MyApp> {
         GetPage(name: '/client/orders/map', page: ()=>ClientOrderMapPage()),
 
 
-
-
-
         GetPage(name: ROUTES.listarAddres, page: ()=>ClientAddresListPage()),  
         
         GetPage(name: ROUTES.payments_create, page: ()=>ClientPaymentsCreatePage()),  
+        GetPage(name: '/client/orders/payments/numcuota', page: ()=>ClientPaymentsNumCuotasPage()),
         //HOME      
       ],
       theme: ThemeData(
