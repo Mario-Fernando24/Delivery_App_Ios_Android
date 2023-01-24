@@ -109,9 +109,15 @@ class ClientOrdersController extends GetxController{
 
     void getTotal(){
       total.value=0.0;
-      //recorremos la lista con un for
+      var i=0;
          selectProducts.forEach((product) {
-         total.value+=total.value+(product.quantity! * product.price!);
+          
+         i=i+1;
+         
+         if(i>1){
+             total.value+=total.value+(product.quantity! * product.price!);
+
+         }
       });
     }
 

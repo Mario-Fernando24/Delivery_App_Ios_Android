@@ -59,10 +59,13 @@ class ClientProductsDetailController extends GetxController{
            
         }else{
              selectProducts[index].quantity=counter.value;
-             print("=======================================================");
-             print(selectProducts[index].toJson());
-             print("=======================================================");
+            //  print("=======================================================");
+            //  print(selectProducts[index].toJson());
+            //  print("=======================================================");
               }
+               print("=======================================================");
+               print(selectProducts[index].toJson());
+               print("=======================================================");
                GetStorage().write('bolsa_compra', selectProducts);
               toaShow("Producto agregado","correctamente",2); 
        

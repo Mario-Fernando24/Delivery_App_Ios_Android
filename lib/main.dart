@@ -81,7 +81,6 @@ class _MyAppState extends State<MyApp> {
         GetPage(name: ROUTES.client_orders_detail, page: ()=>ClientOrdersDetailPage()),
         GetPage(name: '/client/orders/map', page: ()=>ClientOrderMapPage()),
 
-
         GetPage(name: ROUTES.listarAddres, page: ()=>ClientAddresListPage()),  
         
         GetPage(name: ROUTES.payments_create, page: ()=>ClientPaymentsCreatePage()),  
