@@ -77,7 +77,9 @@ class ClientPaymentsController extends GetxController{
                print('MERCADO PAGO: ${mercadoPagoCardToken.toJson()}');
 
             Get.toNamed('/client/orders/payments/numcuota',arguments: {
-                              'card_token': mercadoPagoCardToken.toJson()
+                              'card_token': mercadoPagoCardToken.toJson(),
+                              'identification_card_type':  idDocumento.value,
+                              'identification_number':documentNumber
                             });
 
        }

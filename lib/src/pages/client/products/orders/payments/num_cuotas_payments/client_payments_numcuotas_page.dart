@@ -120,7 +120,7 @@ class _ClientPaymentsNumCuotasPageState extends State<ClientPaymentsNumCuotasPag
 
                   margin: EdgeInsets.symmetric(horizontal: 30),
                   child: ElevatedButton(
-                   onPressed: ()=>{},
+                   onPressed: ()=>clientPaymentsNumCuotasController.createPayment(context),
                    style: ElevatedButton.styleFrom(
                     padding: EdgeInsets.all(10)
                    ),
