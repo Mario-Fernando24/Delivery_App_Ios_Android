@@ -36,6 +36,7 @@ class RestaurantCategoriesCreateController extends GetxController{
                 clearForm();
                 print(responseApi.data);
                 Get.snackbar('Proceso terminado', responseApi.message ?? '');
+                goToHomeRestaurant();
                 
                 }else{               
                 Get.snackbar("Error", responseApi.message!);
@@ -60,6 +61,10 @@ class RestaurantCategoriesCreateController extends GetxController{
         return true;
 
     }
+
+     void goToHomeRestaurant(){
+       Get.toNamed('/restaurant/home');
+  }  
 
     void clearForm(){
        nameController.text='';

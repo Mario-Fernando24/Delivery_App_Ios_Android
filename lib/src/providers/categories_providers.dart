@@ -60,6 +60,35 @@ class CategoryProviders extends GetConnect{
   }
 
 
+    Future<ResponseApi> updateCategory(Category category) async {
+
+      Response response = await put(
+          '$url/update',
+          category.toJson(),
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': userSesion.session_token ?? ''
+          }
+      ); // ESPERAR HASTA QUE EL SERVIDOR NOS RETORNE LA RESPUESTA
+
+    
+      if(response.body==null){
+      Get.snackbar("Error", "No se actualizar la categoria");
+        return ResponseApi();
+      }
+      if(response.statusCode==401){
+        Get.snackbar("Error", "No esta autorizado para realizar este petición");
+        return ResponseApi();
+      }
+      else{
+          //creamos un objeto
+          ResponseApi responseApi = ResponseApi.fromJson(response.body);
+          return responseApi;
+
+      }
+    }
+
+
   
 
   

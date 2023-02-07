@@ -11,15 +11,26 @@ class RestaurantCategoryListPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Categorias", style: TextStyle(
-          color: Colors.white
-        ),),
+        automaticallyImplyLeading: false,
+        title: Padding(
+          padding: const EdgeInsets.only(left: 100.0),
+          child: Text("Listas categorias", style: TextStyle(
+            color: Colors.white
+          ),
+          ),
+        ),
       ),
        body:  Stack(
         children: [
           // _textTitle(),
           _listCategory(context)
       ],
+      ),
+        floatingActionButton: FloatingActionButton(
+        onPressed: ()=> restaurantCategoryListController.goToHomeRestaurantCreate(),
+        foregroundColor: Colors.white,
+        backgroundColor: Colors.red,
+        child: const Icon(Icons.add),
       ),
     );
   }

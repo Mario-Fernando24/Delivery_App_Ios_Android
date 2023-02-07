@@ -5,20 +5,28 @@ import 'package:ios/src/pages/restaurant/categories/list/restaurant_category_lis
 
 class ModalCategory extends StatelessWidget {
   
-  Category? category;
-   late RestaurantCategoryListController restaurantCategoryListController;
+    Category? category;
+    late RestaurantCategoryListController restaurantCategoryListController;
+
+    late TextEditingController nameController =TextEditingController(text: 'mario');
+    late TextEditingController descripctionController=TextEditingController(text: category!.descripcion!);
 
     ModalCategory({@required this.category}){
       restaurantCategoryListController = Get.put(RestaurantCategoryListController());
+
      }
+    
+     
 
 
   @override
   Widget build(BuildContext context) {
+   
+     
     return Container(
       child: Column(
         children: [
-            _textYourInfo(),
+            _textYourInfo(category!.name.toString()),
             _textName(),
             _textDescription(),
             _buttonEdit(context)
@@ -27,11 +35,11 @@ class ModalCategory extends StatelessWidget {
     );
   }
 
-  Widget _textYourInfo(){
+  Widget _textYourInfo(String name){
     return Container(
       margin: EdgeInsets.only(top: 30,bottom: 30),
-      child: Text("Agregar categoria",
-      style: TextStyle(color: Colors.black,fontSize: 18,
+      child: Text(name,
+      style: TextStyle(color: Colors.black,fontSize: 20,
       fontWeight: FontWeight.bold),));
   }
 
@@ -39,7 +47,7 @@ class ModalCategory extends StatelessWidget {
    return Container(
     margin: EdgeInsets.symmetric(horizontal: 30),
      child: TextField(
-      // controller: _restaurantCategoriesCreateController.nameController,
+      controller: nameController,
       keyboardType: TextInputType.text,
       decoration: InputDecoration(
         hintText: 'Categoria',
@@ -54,7 +62,7 @@ Widget _textDescription(){
    return Container(
     margin: EdgeInsets.symmetric(horizontal: 30,vertical: 20),
      child: TextField(
-      // controller: _restaurantCategoriesCreateController.descripctionController,
+      controller: descripctionController,
       keyboardType: TextInputType.text,
       maxLines: 4,
       decoration: InputDecoration(
@@ -75,7 +83,7 @@ Widget _textDescription(){
     height: 50,
     margin: EdgeInsets.symmetric(horizontal: 30,vertical: 30),
     child: ElevatedButton(
-      onPressed: ()=>{},
+      onPressed: ()=>restaurantCategoryListController.updateCategory(nameController, descripctionController,category!.id.toString(), context),
       style: ElevatedButton.styleFrom(
         padding: EdgeInsets.symmetric(vertical: 15)
       ),

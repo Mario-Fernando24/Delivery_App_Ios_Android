@@ -21,6 +21,7 @@ import 'package:ios/src/pages/delivery/orders/list/delivery_orders_list_page.dar
 import 'package:ios/src/pages/home/home_page.dart';
 import 'package:ios/src/pages/login/login_page.dart';
 import 'package:ios/src/pages/register/register_page.dart';
+import 'package:ios/src/pages/restaurant/categories/create/restaurant_categories_create.dart';
 import 'package:ios/src/pages/restaurant/home/restaurant_home_page.dart';
 import 'package:ios/src/pages/restaurant/orders/detail/restaurant_orders_detail_controller.dart';
 import 'package:ios/src/pages/restaurant/orders/list/restaurant_orders_list_page.dart';
@@ -67,6 +68,7 @@ class _MyAppState extends State<MyApp> {
         GetPage(name: '/restaurant/home', page: ()=>RestaurantHomePage()),
         GetPage(name: '/restaurant/orders/list', page: ()=>RestaurantOdersListPage()),
         GetPage(name: '/restaurant/category/list', page: ()=>RestaurantCategoryListPage()),
+        GetPage(name: '/restaurant/category/create', page: ()=>RestaurantCategoriesCreatePage()),
 
 
 
