@@ -13,6 +13,7 @@ import 'package:ios/src/pages/client/products/orders/list/client_orders_list_pag
 import 'package:ios/src/pages/client/products/orders/map/client_orders_map_page.dart';
 import 'package:ios/src/pages/client/products/orders/payments/create/client_payments_create_page.dart';
 import 'package:ios/src/pages/client/products/orders/payments/num_cuotas_payments/client_payments_numcuotas_page.dart';
+import 'package:ios/src/pages/client/products/orders/payments/status/client_payments_status_page.dart';
 import 'package:ios/src/pages/client/products/profile/info/client_profile_info_page.dart';
 import 'package:ios/src/pages/client/products/profile/update/client_profile_update_page.dart';
 import 'package:ios/src/pages/delivery/home/delivery_home_page.dart';
@@ -28,6 +29,7 @@ import 'package:ios/src/utils/theme/style.dart';
 
 import 'src/pages/delivery/orders/detail/delivery_orders_detail_pagee.dart';
 import 'src/pages/delivery/orders/map/delivery_orders_map_page.dart';
+import 'src/pages/restaurant/categories/list/restaurant_category_list_page.dart';
 
 
 User myUserSession = User.fromJson(GetStorage().read('user') ?? {});
@@ -64,6 +66,9 @@ class _MyAppState extends State<MyApp> {
         GetPage(name: '/roles', page: ()=>RolesPage()),
         GetPage(name: '/restaurant/home', page: ()=>RestaurantHomePage()),
         GetPage(name: '/restaurant/orders/list', page: ()=>RestaurantOdersListPage()),
+        GetPage(name: '/restaurant/category/list', page: ()=>RestaurantCategoryListPage()),
+
+
 
         GetPage(name: '/delivery/home', page: ()=>DeliveryHomePage()),
         GetPage(name: '/delivery/orders/list', page: ()=>DeliveryOdersListPage()),
@@ -85,6 +90,9 @@ class _MyAppState extends State<MyApp> {
         
         GetPage(name: ROUTES.payments_create, page: ()=>ClientPaymentsCreatePage()),  
         GetPage(name: '/client/orders/payments/numcuota', page: ()=>ClientPaymentsNumCuotasPage()),
+        GetPage(name: '/client/orders/payments/status', page: ()=>ClientPaymentStatusPage()),
+
+        
         //HOME      
       ],
       theme: ThemeData(

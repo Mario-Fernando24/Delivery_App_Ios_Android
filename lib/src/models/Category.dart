@@ -41,6 +41,10 @@ class Category {
       jsonList.forEach((item) {
            Category category =Category.fromJson(item);
            //agregamos a la lista
+           print('=========================================');
+           print(category.toJson());
+           
+           print('=========================================');
            toList.add(category);
        });
 

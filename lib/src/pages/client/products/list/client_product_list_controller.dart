@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:ios/src/environment/routes.dart';
 import 'package:ios/src/models/Category.dart';
 import 'package:ios/src/models/Product.dart';
 import 'package:ios/src/pages/client/products/list/detail/client_product_list_detail_page.dart';
@@ -29,12 +30,12 @@ class ClientProductsListController extends GetxController{
        ClientProductsListController() {
 
     
-      if(GetStorage().read('bolsa_compra')!=null){
+      if(GetStorage().read(ROUTES.car_shop)!=null){
        //validar si gestorage es una list de producto
-       if(GetStorage().read('bolsa_compra') is List<Product>){
-         selectProducts=GetStorage().read('bolsa_compra');
+       if(GetStorage().read(ROUTES.car_shop) is List<Product>){
+         selectProducts=GetStorage().read(ROUTES.car_shop);
        }else{
-          selectProducts=Product.fromJsonList(GetStorage().read('bolsa_compra'));
+          selectProducts=Product.fromJsonList(GetStorage().read(ROUTES.car_shop));
        }
           item.value=0;
           selectProducts.forEach((p) {
@@ -47,11 +48,15 @@ class ClientProductsListController extends GetxController{
 
 
         void goToOrdersCreate(){
-            if(item>0){
+          print('priiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii');
+          print(selectProducts.length);
+          
+          print('priiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii');
+            // if(item>0){
                  Get.toNamed('/client/products/orders');
-            }else{
-              Fluttertoast.showToast(msg: "No tiene producto en el carrito");
-            }
+            // }else{
+            //   Fluttertoast.showToast(msg: "No tiene producto en el carrito");
+            // }
         }
            
         //texto digitado por el usuario para buscar por nombre
@@ -90,13 +95,14 @@ class ClientProductsListController extends GetxController{
 
         //METODO PARA ABRIR EL BOTONSHEET DE LOS DETALLES DE LOS PRODUCTO
         void openBottonSheet(Product product, BuildContext context){
+
               showMaterialModalBottomSheet(
                 context: context,
                 //la pagina que quiero abrir
                 builder: (contex)=>ClientProductDetailPage(
                   product: product)
                 );
-        }
+         }
 
 
    

@@ -27,6 +27,7 @@ class _ClientProductsListPageState extends State<ClientProductsListPage> {
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(110),
           child: AppBar(
+            automaticallyImplyLeading: false,
             flexibleSpace: Container(
               margin: EdgeInsets.only(top: 15),
               alignment: Alignment.topCenter,

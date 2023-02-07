@@ -106,6 +106,7 @@ class ClientOrdersPage extends StatelessWidget {
         child: Row(
           children: [
              _imageProduct(product),
+             
              SizedBox(width: 15),
              Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -113,15 +114,19 @@ class ClientOrdersPage extends StatelessWidget {
                 Text(product.name ?? '', style: TextStyle(
                   fontWeight: FontWeight.bold
                 ),),
-                SizedBox(height: 7),
+                _textPriceUnidad(product),
+                SizedBox(height: 6),
                 _buttonsAddOrRemove(product),
               ],
              ),
+
+
 
              // Spacer ocupar el resto de la pantalla extremo
              Spacer(),
              Column(
               children: [
+
                 _textPrice(product),
                 _iconDelete(product)
               ],
@@ -140,6 +145,18 @@ class ClientOrdersPage extends StatelessWidget {
       color: Colors.red,
       ),
      );
+  }
+
+  Widget _textPriceUnidad(Product product){
+       return Container(
+        margin: EdgeInsets.only(top: 10),
+        child: Text(
+          '\$ ${  product.price! }',
+          style: TextStyle(color: Colors.grey,
+          fontSize: 13.0,
+          fontWeight: FontWeight.normal),
+        ),
+       );
   }
 
   Widget _textPrice(Product product){

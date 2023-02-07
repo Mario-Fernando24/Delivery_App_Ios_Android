@@ -81,7 +81,8 @@ class MercadoPagoProviders extends GetConnect{
 
 
   //creando el pago
-  Future<ResponseApi> createPayment({
+  Future<Response> createPayment({
+    
     @required String? token,
     @required String? paymentMethodId,
     @required String? paymentTypeId,
@@ -92,6 +93,7 @@ class MercadoPagoProviders extends GetConnect{
     @required double? transactionAmount,
     @required int? installments,
     @required Order? orden}) async  {
+
 
        Response response = await post(
         '${urlRest}api/payments/create',{
@@ -119,9 +121,12 @@ class MercadoPagoProviders extends GetConnect{
           
             print('RESPUESTA DE LA DATA:: ${response.body}');
             print('ESTATUS DE LA DATA:: ${response.statusCode}');
-       ResponseApi responseApi = ResponseApi.fromJson(response.body);
+        // ResponseApi responseApi = ResponseApi.fromJson(response.body);
 
-       return responseApi;
+       return response;
+
+
+  
     }
 
 

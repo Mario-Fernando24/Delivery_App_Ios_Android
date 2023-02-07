@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ios/src/pages/client/products/profile/info/client_profile_info_page.dart';
 import 'package:ios/src/pages/restaurant/categories/create/restaurant_categories_create.dart';
+import 'package:ios/src/pages/restaurant/categories/list/restaurant_category_list_page.dart';
 import 'package:ios/src/pages/restaurant/home/restaurant_home_controller.dart';
 import 'package:ios/src/pages/restaurant/orders/list/restaurant_orders_list_page.dart';
 import 'package:ios/src/pages/restaurant/products/create/restaurant_products_create.dart';
@@ -26,7 +27,8 @@ class _RestaurantHomePageState extends State<RestaurantHomePage> {
         index: restaurantHomeController.indexTab.value,
         children: [
           RestaurantOdersListPage(),
-          RestaurantCategoriesCreatePage(),
+         // RestaurantCategoriesCreatePage(),
+          RestaurantCategoryListPage(),
           RestaurantProductoCreatePage(), 
           ClientProfileInfoPage()
         ],

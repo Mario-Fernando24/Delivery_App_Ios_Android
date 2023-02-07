@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:ios/src/environment/routes.dart';
 import 'package:ios/src/models/User.dart';
 
 class HomeController extends GetxController{
@@ -15,7 +16,7 @@ class HomeController extends GetxController{
    void singOut(){
     //eliminamos del localstorage el usuario y los productos que tiene agregado en el carrito de compra
     GetStorage().remove('user');
-    GetStorage().remove('bolsa_compra');
+    GetStorage().remove(ROUTES.car_shop);
     GetStorage().remove('direccion');
 
 

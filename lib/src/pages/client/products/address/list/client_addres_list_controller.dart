@@ -73,13 +73,13 @@ class ClientAddresListController extends GetxController{
      //obtengo los productos del localstora de la bolsa de compra
 
     List<Product> products = [];
-    if (GetStorage().read('bolsa_compra') is List<Product>) {
+    if (GetStorage().read(ROUTES.car_shop) is List<Product>) {
 
-      products = GetStorage().read('bolsa_compra');
+      products = GetStorage().read(ROUTES.car_shop);
     }
     else {
 
-      products = Product.fromJsonList(GetStorage().read('bolsa_compra'));
+      products = Product.fromJsonList(GetStorage().read(ROUTES.car_shop));
     }
   
     Order order = Order(
@@ -94,7 +94,7 @@ class ClientAddresListController extends GetxController{
 
     if(responseApi.success==true){
     //  progressDialog.close();
-    //  GetStorage().remove('bolsa_compra');
+    //  GetStorage().remove(ROUTES.car_shop);
 
       Get.toNamed(ROUTES.payments_create);
     }

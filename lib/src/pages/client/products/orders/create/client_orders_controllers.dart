@@ -18,11 +18,11 @@ class ClientOrdersController extends GetxController{
     //obtengo en el constructor los producto guardados en el GetStorage y lo almaceno en una lista de producto
      ClientOrdersController(){
      
-       if(GetStorage().read('bolsa_compra')!=null){
+       if(GetStorage().read(ROUTES.car_shop)!=null){
        //validar si gestorage es una list de producto
-       if(GetStorage().read('bolsa_compra') is List<Product>){
+       if(GetStorage().read(ROUTES.car_shop) is List<Product>){
             //le asigno el array que esta en el Gestorage y se lo asigno a la variable result
-            var result =GetStorage().read('bolsa_compra'); 
+            var result =GetStorage().read(ROUTES.car_shop); 
             print("*********************************************************************");
             // print("mario fernando"+result);
             print("*********************************************************************");
@@ -32,7 +32,7 @@ class ClientOrdersController extends GetxController{
             selectProducts.addAll(result);
           
           }else{
-            var result =Product.fromJsonList(GetStorage().read('bolsa_compra'));
+            var result =Product.fromJsonList(GetStorage().read(ROUTES.car_shop));
             selectProducts.clear();
             selectProducts.addAll(result);
        }
@@ -54,13 +54,22 @@ class ClientOrdersController extends GetxController{
          //le agregamos a ese indice y el producto
          selectProducts.insert(index, product);
          //llamamos al GetStorage para guardar el json de producto en el storage
-         GetStorage().write('bolsa_compra', selectProducts);
+         GetStorage().write(ROUTES.car_shop, selectProducts);
          getTotal();
 
             clientProductsListController.item.value=0;
              selectProducts.forEach((p) {
               clientProductsListController.item.value=clientProductsListController.item.value+(p.quantity!);
              });
+    }
+
+    void getTotal(){
+
+    total.value = 0.0;
+      selectProducts.forEach((product) {
+        total.value = total.value + (product.quantity! * product.price!);
+     });
+
     }
 
 
@@ -78,7 +87,7 @@ class ClientOrdersController extends GetxController{
          //le agregamos a ese indice y el producto
          selectProducts.insert(index, product);
          //llamamos al GetStorage para guardar el json de producto en el storage
-         GetStorage().write('bolsa_compra', selectProducts);
+         GetStorage().write(ROUTES.car_shop, selectProducts);
          getTotal();
           
           
@@ -94,7 +103,7 @@ class ClientOrdersController extends GetxController{
 
     void deleteProduct(Product product){
       selectProducts.remove(product);
-      GetStorage().write('bolsa_compra', selectProducts);
+      GetStorage().write(ROUTES.car_shop, selectProducts);
       getTotal();
       if(selectProducts.length==0){
           clientProductsListController.item.value=0;
@@ -107,19 +116,9 @@ class ClientOrdersController extends GetxController{
      
     }
 
-    void getTotal(){
-      total.value=0.0;
-      var i=0;
-         selectProducts.forEach((product) {
-          
-         i=i+1;
-         
-         if(i>1){
-             total.value+=total.value+(product.quantity! * product.price!);
+    
 
-         }
-      });
-    }
+    
 
     void goToListAddres(){
       Get.toNamed(ROUTES.listarAddres);
