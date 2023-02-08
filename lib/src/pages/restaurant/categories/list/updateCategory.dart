@@ -2,43 +2,50 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ios/src/models/Category.dart';
 import 'package:ios/src/pages/restaurant/categories/list/restaurant_category_list_controller.dart';
+import 'package:ios/src/pages/restaurant/categories/list/updateController.dart';
 
-class ModalCategory extends StatelessWidget {
-  
-    Category? category;
-    late RestaurantCategoryListController restaurantCategoryListController;
+class UpdateCategory extends StatefulWidget {
+  UpdateCategory({Key? key}) : super(key: key);
 
-    late TextEditingController nameController =TextEditingController(text: 'mario');
-    late TextEditingController descripctionController=TextEditingController(text: category!.descripcion!);
+  @override
+  State<UpdateCategory> createState() => _UpdateCategoryState();
+}
 
-    ModalCategory({@required this.category}){
-      restaurantCategoryListController = Get.put(RestaurantCategoryListController());
+class _UpdateCategoryState extends State<UpdateCategory> {
+   UpdateController updateController = Get.put(UpdateController());
+     Category categorypa = Category.fromJson(Get.arguments['categoryy']);
 
-     }
-    
-     
-
+    final  TextEditingController nameController = TextEditingController();
+    final  TextEditingController descripctionController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-   
-     
-    return Container(
-      child: Column(
-        children: [
-            _textYourInfo(category!.name.toString()),
-            _textName(),
-            _textDescription(),
-            _buttonEdit(context)
-        ],
-      ),
-    );
+
+      nameController.text=categorypa.name.toString();
+      descripctionController.text=categorypa.descripcion.toString();
+
+    
+       return Scaffold(
+        bottomNavigationBar: _buttonEdit(context),
+        appBar: AppBar(
+          title: Text('Actualizar categoria'),
+        ),
+         body: Container(
+             child: Column(
+          children: [
+              _textYourInfo('Editar  '),
+              _textName(),
+              _textDescription(),
+          ],
+         ),
+        ),
+       );
   }
 
   Widget _textYourInfo(String name){
     return Container(
       margin: EdgeInsets.only(top: 30,bottom: 30),
-      child: Text(name,
+      child: Text(name+nameController.text,
       style: TextStyle(color: Colors.black,fontSize: 20,
       fontWeight: FontWeight.bold),));
   }
@@ -47,7 +54,7 @@ class ModalCategory extends StatelessWidget {
    return Container(
     margin: EdgeInsets.symmetric(horizontal: 30),
      child: TextField(
-      controller: nameController,
+        controller: nameController,
       keyboardType: TextInputType.text,
       decoration: InputDecoration(
         hintText: 'Categoria',
@@ -56,7 +63,6 @@ class ModalCategory extends StatelessWidget {
      ),
    );
 }
-
 
 Widget _textDescription(){
    return Container(
@@ -76,14 +82,14 @@ Widget _textDescription(){
    );
 }
 
-
   Widget _buttonEdit(BuildContext context){
   return Container(
     width: double.infinity,
     height: 50,
     margin: EdgeInsets.symmetric(horizontal: 30,vertical: 30),
     child: ElevatedButton(
-      onPressed: ()=>restaurantCategoryListController.updateCategory(nameController, descripctionController,category!.id.toString(), context),
+       onPressed: ()=>updateController.updateCategory(nameController, descripctionController,categorypa.id.toString(), context),
+
       style: ElevatedButton.styleFrom(
         padding: EdgeInsets.symmetric(vertical: 15)
       ),
@@ -94,6 +100,4 @@ Widget _textDescription(){
        ),
   );
 }
-
-
 }

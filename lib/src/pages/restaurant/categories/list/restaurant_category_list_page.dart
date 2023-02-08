@@ -138,7 +138,7 @@ class RestaurantCategoryListPage extends StatelessWidget {
 
                         Padding(
                           padding:
-                              const EdgeInsets.only(right: 15.0, top: 2.0, bottom: 10.0),
+                              const EdgeInsets.only(right: 15.0, top: 0.02, bottom: 20.0),
                           child: Text(
                             category.descripcion ?? '',
                             maxLines: 4,

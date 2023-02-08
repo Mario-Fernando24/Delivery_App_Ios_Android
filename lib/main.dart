@@ -31,6 +31,7 @@ import 'package:ios/src/utils/theme/style.dart';
 import 'src/pages/delivery/orders/detail/delivery_orders_detail_pagee.dart';
 import 'src/pages/delivery/orders/map/delivery_orders_map_page.dart';
 import 'src/pages/restaurant/categories/list/restaurant_category_list_page.dart';
+import 'src/pages/restaurant/categories/list/updateCategory.dart';
 
 
 User myUserSession = User.fromJson(GetStorage().read('user') ?? {});
@@ -69,6 +70,8 @@ class _MyAppState extends State<MyApp> {
         GetPage(name: '/restaurant/orders/list', page: ()=>RestaurantOdersListPage()),
         GetPage(name: '/restaurant/category/list', page: ()=>RestaurantCategoryListPage()),
         GetPage(name: '/restaurant/category/create', page: ()=>RestaurantCategoriesCreatePage()),
+        GetPage(name: '/restaurant/category/update', page: ()=>UpdateCategory()),
+
 
 
 

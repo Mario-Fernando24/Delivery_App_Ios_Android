@@ -1,46 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:ios/src/environment/routes.dart';
-import 'package:ios/src/models/Category.dart';
 import 'package:ios/src/models/response_api.dart';
-import 'package:ios/src/pages/restaurant/categories/list/updateCategory.dart';
 import 'package:ios/src/providers/categories_providers.dart';
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
-import 'package:sn_progress_dialog/progress_dialog.dart';
+import 'package:sn_progress_dialog/sn_progress_dialog.dart';
 
-class RestaurantCategoryListController extends GetxController{
+import '../../../../models/Category.dart';
+
+class UpdateController extends GetxController{
+
 
   CategoryProviders categoryProviders = CategoryProviders();
-  List<Category> category =<Category>[].obs;
 
 
+  
 
 
-  RestaurantCategoryListController(){
-    //  getCategories();
- 
-  }
-
-  Future<List<Category>> getCategories() async{
-
-     category = await categoryProviders.getAllCategory();
-     return category;
-  }
-
-   void openBottonSheetCategory(Category category, BuildContext context){
-
-      Get.toNamed('/restaurant/category/update',arguments: {
-                'categoryy':category.toJson()
-            });
-   }
-
-
-   void updateCategory(TextEditingController name, TextEditingController descripcion, String id, BuildContext context) async{
+     void updateCategory(TextEditingController name, TextEditingController descripcion, String id, BuildContext context) async{
             
             String nameC=name.text.trim();
             String descriptionC=descripcion.text.trim();
-       
        
             ProgressDialog progressDialog = ProgressDialog(context: context);
             progressDialog.show(max: 100, msg: "actualizando categoria...");
@@ -69,14 +48,11 @@ class RestaurantCategoryListController extends GetxController{
 
    }    
 
-   void goToHomeRestaurantCreate(){
-       Get.toNamed('/restaurant/category/create');
-  }  
-   void goToHomeRestaurante(BuildContext context){
-       getCategories();
-       Navigator.pop(context);
+
+     void goToHomeRestaurante(BuildContext context){
+        Get.toNamed('/restaurant/home');
   }  
 
 
- 
-}
+    
+  }
