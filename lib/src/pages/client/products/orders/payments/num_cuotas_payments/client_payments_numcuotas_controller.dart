@@ -135,7 +135,8 @@ class ClientPaymentsNumCuotasController extends GetxController{
       print('RESPONSE BODY 501: ${response.body}');
 
       if (response.body['error']['status'] == 400) {
-        print('BODY ERROR: ${response.body['error']}');
+        print('BODY ERROR: ${response.body['error'].toString()}');
+        print('BODY mario: ${response.body['error']}');
         badRequestProcess(response.body['error']);
       }
       else {
@@ -209,9 +210,11 @@ class ClientPaymentsNumCuotasController extends GetxController{
 
 
 
-          void badRequestProcess(dynamic data){
+  void badRequestProcess(dynamic data){
     Map<String, String> paymentErrorCodeMap = {
       '3034' : 'Informacion de la tarjeta invalida',
+      '3033' : 'La longitud de digitos de tu tarjeta es erroneo',
+      '3032' : 'Por favor verifica el CVV de tu tarjeta',
       '205' : 'Ingresa el número de tu tarjeta',
       '208' : 'Digita un mes de expiración',
       '209' : 'Digita un año de expiración',
@@ -231,11 +234,11 @@ class ClientPaymentsNumCuotasController extends GetxController{
       '326' : 'Revisa la fecha'
     };
     String? errorMessage;
-    print('CODIGO ERROR ${data['err']['cause'][0]['code']}');
+    print('CODIGO ERROR ${data['cause'][0]['code']}');
 
-    if(paymentErrorCodeMap.containsKey('${data['err']['cause'][0]['code']}')){
+    if(paymentErrorCodeMap.containsKey('${data['cause'][0]['code']}')){
       print('ENTRO IF');
-      errorMessage = paymentErrorCodeMap['${data['err']['cause'][0]['code']}'];
+      errorMessage = paymentErrorCodeMap['${data['cause'][0]['code']}'];
     }else{
       errorMessage = 'No pudimos procesar tu pago';
     }
@@ -243,10 +246,10 @@ class ClientPaymentsNumCuotasController extends GetxController{
     // Navigator.pop(context);
   }
 
-  void badTokenProcess(String status, MercadoPagoPaymentMethodInstallments installments){
+ void badTokenProcess(String status, MercadoPagoPaymentMethodInstallments installments){
     Map<String, String> badTokenErrorCodeMap = {
       '106' : 'No puedes realizar pagos a usuarios de otros paises.',
-      '109' : '${installments.paymentMethodId} no procesa pagos en ${numCuotaaaa.value} cuotas',
+      '109' : '${installments.paymentMethodId} no procesa pagos en ${this.numCuotaaaa.value} cuotas',
       '126' : 'No pudimos procesar tu pago.',
       '129' : '${installments.paymentMethodId} no procesa pagos del monto seleccionado.',
       '145' : 'No pudimos procesar tu pago',
@@ -265,5 +268,6 @@ class ClientPaymentsNumCuotasController extends GetxController{
     Get.snackbar('Error en la transaccion', errorMessage ?? '');
     // Navigator.pop(context);
   }
+
 
 }

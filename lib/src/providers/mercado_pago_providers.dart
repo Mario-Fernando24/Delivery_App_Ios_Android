@@ -164,6 +164,13 @@ class MercadoPagoProviders extends GetConnect{
 
         }
     ); 
+
+     print('========================>${response.statusCode}');
+      if(response.statusCode == 400){
+       Get.snackbar('Error', 'No se pudo validar la tarjeta');
+       return MercadoPagoCardToken();
+       
+       }
    print('========================>${response.statusCode}');
     if(response.statusCode != 201){
        Get.snackbar('Error', 'No se pudo validar la tarjeta');
