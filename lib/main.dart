@@ -1,3 +1,5 @@
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -26,6 +28,8 @@ import 'package:ios/src/pages/restaurant/home/restaurant_home_page.dart';
 import 'package:ios/src/pages/restaurant/orders/detail/restaurant_orders_detail_controller.dart';
 import 'package:ios/src/pages/restaurant/orders/list/restaurant_orders_list_page.dart';
 import 'package:ios/src/pages/roles/roles_page.dart';
+import 'package:ios/src/providers/push_notification_providers.dart';
+import 'package:ios/src/utils/firebase_config.dart';
 import 'package:ios/src/utils/theme/style.dart';
 
 import 'src/pages/delivery/orders/detail/delivery_orders_detail_pagee.dart';
@@ -34,11 +38,28 @@ import 'src/pages/restaurant/categories/list/restaurant_category_list_page.dart'
 import 'src/pages/restaurant/categories/list/updateCategory.dart';
 
 
+PushNotificacionProviders pushNotificacionProviders = PushNotificacionProviders();
 User myUserSession = User.fromJson(GetStorage().read('user') ?? {});
+
+Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+  await Firebase.initializeApp(options: FirebaseConfig.currentPlatform);
+  print('Recibiendo notificacion en segundo plano ${message.messageId}');
+}
+
+
 void main() async{
   //inicializamos storage
   await GetStorage.init();
- 
+
+  //notificaciones primer plano
+   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options: FirebaseConfig.currentPlatform);
+
+  //recibir las notificaciones en segundo plano
+    FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+    //empezara a escuchar las notificaciones
+    pushNotificacionProviders.initPushNotification();
+
   runApp(MyApp());
 }
 
@@ -50,6 +71,14 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+        pushNotificacionProviders.onMessageListener();
+
+  }
 
   
   @override

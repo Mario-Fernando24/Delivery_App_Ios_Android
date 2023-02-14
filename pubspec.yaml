@@ -61,6 +61,14 @@ dependencies:
   #nos hace una ui card
   flutter_credit_card: ^3.0.4
 
+  #crear la conexion a firebase messaging para crear las notificacion
+  firebase_messaging: ^14.2.2
+  # plugin nos ayuda a crear nuestras notificacion push
+  flutter_local_notifications: ^13.0.0
+  #complemento de las notificaciones
+  firebase_core: ^2.5.0
+
+
 
 
 

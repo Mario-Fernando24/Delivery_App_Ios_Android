@@ -46,8 +46,8 @@ class RegisterController extends GetxController{
       if(isValidRegister(email, name, lastname, phone, password, repPassword)){
 
 
-      // ProgressDialog progressDialog = ProgressDialog(context: context);
-      // progressDialog.show(max: 100, msg: "Registrando los datos...");
+       ProgressDialog progressDialog = ProgressDialog(context: context);
+       progressDialog.show(max: 100, msg: "Registrando los datos...");
         //creamos un usuario
         User user = User(
           email:email,
@@ -61,7 +61,7 @@ class RegisterController extends GetxController{
     Stream stream = await usersProviders.createWithImage(user, imageFile!);
       stream.listen((res) {
 
-        // progressDialog.close();
+         progressDialog.close();
 
         ResponseApi responseApi = ResponseApi.fromJson(json.decode(res));
 
