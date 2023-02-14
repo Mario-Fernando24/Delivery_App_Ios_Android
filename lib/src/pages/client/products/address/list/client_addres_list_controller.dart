@@ -8,8 +8,10 @@ import 'package:ios/src/models/Order.dart';
 import 'package:ios/src/models/Product.dart';
 import 'package:ios/src/models/User.dart';
 import 'package:ios/src/models/response_api.dart';
+import 'package:ios/src/pages/client/products/orders/cash/client_orders_cash_page.dart';
 import 'package:ios/src/providers/address_providers.dart';
 import 'package:ios/src/providers/orders_providers.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:sn_progress_dialog/sn_progress_dialog.dart';
 
 class ClientAddresListController extends GetxController{
@@ -58,6 +60,20 @@ class ClientAddresListController extends GetxController{
 
     GetStorage().write('direccion',address[value].toJson());
     update();
+  }
+
+
+  void optionPay(BuildContext context){
+
+    showMaterialModalBottomSheet(
+                context: context,
+                //la pagina que quiero abrir
+                builder: (contex)=>
+                Container(
+                  height: 180.0,
+                  child: ClientOrderCash()
+                  )
+                );
   }
 
   void createOrders() async {

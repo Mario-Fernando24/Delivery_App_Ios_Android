@@ -6,4 +6,6 @@ class ROUTES {
   static const client_orders_detail = '/client/orders/detail';
 
   static const car_shop='bolsa_compra';
+  static const addresStore='direccion';
+
 }

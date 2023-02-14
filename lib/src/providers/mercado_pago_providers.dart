@@ -155,13 +155,10 @@ class MercadoPagoProviders extends GetConnect{
                    'number': documentNumber,
                    'type': documentId
                }
-
           }
-
         },
         headers: {
           'Content-Type': 'application/json',
-
         }
     ); 
 
@@ -182,5 +179,26 @@ class MercadoPagoProviders extends GetConnect{
     MercadoPagoCardToken responseApi = MercadoPagoCardToken.fromJson(response.body);
     return responseApi;
   }
+
+
+
+
+  Future<Response> createPaymentCash({@required Order? orden}) async  {
+
+         Response response = await post(
+        '${urlRest}api/payments/createCash',{
+            'order': orden!.toJson()
+        },
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': userSesion.session_token ?? ''
+        }
+       ); 
+          
+            print('RESPUESTA DE LA DATA:: ${response.body}');
+            print('ESTATUS DE LA DATA:: ${response.statusCode}');
+
+       return response;
+    }
 
 }

@@ -119,7 +119,8 @@ class ClientAddresListPage extends StatelessWidget {
     height: 50,
     margin: EdgeInsets.symmetric(horizontal: 30,vertical: 30),
     child: ElevatedButton(
-      onPressed: ()=>_clientAddresListController.createOrders(),
+      //onPressed: ()=>_clientAddresListController.createOrders(),
+      onPressed: ()=>_clientAddresListController.optionPay(context),
       style: ElevatedButton.styleFrom(
         padding: EdgeInsets.symmetric(vertical: 15)
       ),
