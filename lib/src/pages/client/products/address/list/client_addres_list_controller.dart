@@ -37,17 +37,24 @@ class ClientAddresListController extends GetxController{
 
 
    Future<List<Address>> getAddress() async{
-      
+        print("1111111111111111111111111111111111111111111111111111111111111111111111");
+                print("222222222222222222222222222222222222222222222222222222222222222222222");
+
         address = await addressProviders.getByfindId();
+
 
         // valido si la la direccion en localstora no esta null
        if(GetStorage().read('direccion')!=null){
-
+        
+          
+          print("222222222222222222222222222222222222222222222222222222222222222222222");
          Address a = Address.fromJson(GetStorage().read('direccion'));
         // //preguntamos si la direccion de session es igual a la que listamos de nuestra base de dato
         int index=address.indexWhere((dire) => dire.id==a.id);
+          print("3333333333333333333333333333333333333333333333333333333333333333333333333");
         //   //si esto es true coincide
          if(index!=-1){
+      
            radioValue.value=index;
          }}
        

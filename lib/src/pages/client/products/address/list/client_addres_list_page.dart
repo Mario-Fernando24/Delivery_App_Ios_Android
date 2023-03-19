@@ -50,9 +50,9 @@ class ClientAddresListPage extends StatelessWidget {
         child: FutureBuilder(
         future: _clientAddresListController.getAddress(),
         builder: (context, AsyncSnapshot<List<Address>> snapshot){
-          print('=======mario fernando=================');
+          print('=====mario fernando esta es la data que tenemos que mostrar de las direcciones======');
           print(snapshot.data);
-          print('=====mario fernando======');
+          print('=====mario fernando esta es la data que tenemos que mostrar de las direcciones======');
           //si tiene informacion
           if(snapshot.hasData){
             //si la data no este vacia

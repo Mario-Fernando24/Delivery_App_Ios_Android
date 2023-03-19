@@ -68,13 +68,13 @@ class ClientPaymentsNumCuotasController extends GetxController{
   void createPayment(BuildContext context) async {
 
     //validamos que el usuario haya seleccionado el numero de cuotas
-      if(numCuotaaaa.value.isEmpty){
-        Get.snackbar('Formulario no valido', 
-         snackPosition: SnackPosition.BOTTOM,
-          backgroundColor: Colors.amber,
-        ' Selecciona el numero de cuotas');
-        return ;
-      }
+      // if(numCuotaaaa.value.isEmpty){
+      //   Get.snackbar('Formulario no valido', 
+      //    snackPosition: SnackPosition.BOTTOM,
+      //     backgroundColor: Colors.amber,
+      //   ' Selecciona el numero de cuotas');
+      //   return ;
+      // }
 
 
      ProgressDialog progressDialog = ProgressDialog(context: context);

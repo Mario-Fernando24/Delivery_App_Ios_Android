@@ -53,10 +53,8 @@ class Address {
       List<Address> toList =[];
       jsonList.forEach((item) {
         
-        print('ñññññññññññññññññññññññññññññññ');
-        print(item);
         
-        print('ñññññññññññññññññññññññññññññññ');
+       
 
         Address address = Address.fromJson(item);
   

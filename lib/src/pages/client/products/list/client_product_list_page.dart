@@ -174,7 +174,7 @@ class _ClientProductsListPageState extends State<ClientProductsListPage> {
              ),
              Positioned(
               right: 7,
-              top: 12,
+              top: 11,
               child: 
                Container(
                

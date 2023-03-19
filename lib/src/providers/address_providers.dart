@@ -17,7 +17,6 @@ class AddressProviders extends GetConnect{
 
     Future<List<Address>> getByfindId() async {
 
-
       Response response = await get(
           '$url/getByfind/'+userSesion.id.toString(),
           headers: {
@@ -32,9 +31,13 @@ class AddressProviders extends GetConnect{
           Get.snackbar("Error", "No tiene permisos");
           return [];
       }
+
+       
       List<Address> address =Address.fromJsonList(response.body);
 
-      print(address);
+       address.map((e) => {
+             print(e.nombreBarrio)
+       });
       
       return address;
       

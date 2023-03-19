@@ -1,6 +1,7 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:ios/src/providers/users_providers.dart';
 
 class PushNotificacionProviders{
 
@@ -8,6 +9,7 @@ class PushNotificacionProviders{
    AndroidNotificationChannel channel = const AndroidNotificationChannel(
     'high_importance_channel', // id
     'High Importance Notifications', 
+    //prioridad alta
     importance: Importance.high,
   );
 
@@ -22,7 +24,6 @@ class PushNotificacionProviders{
             .resolvePlatformSpecificImplementation<
                 AndroidFlutterLocalNotificationsPlugin>()
             ?.createNotificationChannel(channel);
-
         await FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(
           alert: true,
           badge: true,
@@ -72,8 +73,16 @@ class PushNotificacionProviders{
       print('A new onMessageOpenedApp event was published!');
      
     });
-  
+    }
 
-  
-  }
+    void saveToken(String id) async{
+        String? token = await FirebaseMessaging.instance.getToken();
+
+        UsersProviders usersProviders = UsersProviders();
+
+        if(token!=null){
+           await usersProviders.updateNotification(id, token);
+        }
+
+    }
 }

@@ -50,12 +50,10 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
 void main() async{
   //inicializamos storage
   await GetStorage.init();
-
-  //notificaciones primer plano
+    //notificaciones primer plano
    WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: FirebaseConfig.currentPlatform);
-
-  //recibir las notificaciones en segundo plano
+    //recibir las notificaciones en segundo plano
     FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
     //empezara a escuchar las notificaciones
     pushNotificacionProviders.initPushNotification();
@@ -76,6 +74,7 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    //ejecutar el metodo 
         pushNotificacionProviders.onMessageListener();
 
   }
@@ -100,15 +99,10 @@ class _MyAppState extends State<MyApp> {
         GetPage(name: '/restaurant/category/list', page: ()=>RestaurantCategoryListPage()),
         GetPage(name: '/restaurant/category/create', page: ()=>RestaurantCategoriesCreatePage()),
         GetPage(name: '/restaurant/category/update', page: ()=>UpdateCategory()),
-
-
-
-
         GetPage(name: '/delivery/home', page: ()=>DeliveryHomePage()),
         GetPage(name: '/delivery/orders/list', page: ()=>DeliveryOdersListPage()),
         GetPage(name: ROUTES.delivery_orders_detail, page: ()=>DeliveryOrdersDetailPage()),
         GetPage(name: '/delivery/orders/map', page: ()=>DeliveryOrderMapPage()),
-
         GetPage(name: ROUTES.restaurant_orders_detail, page: ()=>RestaurantOrdersDetail()),
         GetPage(name: '/client/home', page: ()=>ClientHomePage()),
         GetPage(name: '/client/products/list', page: ()=>ClientProductsListPage()),

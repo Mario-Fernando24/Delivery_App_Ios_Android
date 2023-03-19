@@ -19,7 +19,8 @@ class ClientOrdersCashController extends GetxController{
   MercadoPagoProviders mercadoPagoProviders = MercadoPagoProviders();
 
     void toGoPayments(){
-       
+      //
+        Get.offAllNamed( ROUTES.payments_create);
     }
 
     void toGoFinishOrdersCash(BuildContext context){

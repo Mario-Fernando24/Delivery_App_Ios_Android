@@ -134,6 +134,53 @@ class UsersProviders extends GetConnect{
   }
 
 
+
+
+   //METODO PARA ACTUALIZAR  TOKEN PARA LAS NOTIFICACIÓN
+   
+  Future<ResponseApi> updateNotification(String id, String token) async {
+
+
+    
+
+     Response response = await put(
+        '$url/updateNotification',
+        {
+          'id':id,
+          'token':token 
+        },
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': userSesion.session_token ?? ''
+        }
+    ); // ESPERAR HASTA QUE EL SERVIDOR NOS RETORNE LA RESPUESTA
+
+   
+    if(response.body==null){
+     
+     Get.snackbar("Error", "No se pudo actualizar la información");
+      //retorno vacio
+      return ResponseApi();
+    }
+     if(response.statusCode==401){
+       Get.snackbar("Error", "No esta autorizado para realizar este petición");
+      //retorno vacio
+      print("mario no autorizado");
+      return ResponseApi();
+    }
+    else{
+         //creamos un objeto
+         ResponseApi responseApi = ResponseApi.fromJson(response.body);
+         return responseApi;
+
+    }
+  }
+
+
+
+
+
+
   //METODO PARA ACTUALIZAR EL PERFIL CON IMAGENES
   
   Future<Stream> updateWithImage(User user, File image) async {
@@ -148,14 +195,15 @@ class UsersProviders extends GetConnect{
       filename: basename(image.path)
     ));
     request.fields['user'] = json.encode(user);
-    
-    print("****************************************************");
-    print(json.encode(user));
-    print("****************************************************");
 
     final response = await request.send();
     return response.stream.transform(utf8.decoder);
   }
+
+
+
+
+  
 
 
 
