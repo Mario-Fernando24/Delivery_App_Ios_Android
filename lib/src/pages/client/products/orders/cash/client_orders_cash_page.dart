@@ -34,7 +34,7 @@ Widget cardPay(BuildContext context){
     return Container(
         padding: EdgeInsets.only(top: 50.0),
           width: MediaQuery.of(context).size.width*0.45,
-          height: MediaQuery.of(context).size.height*0.14,
+          height: MediaQuery.of(context).size.height*0.19,
               child: Card(
                   elevation: 2,
                   margin: EdgeInsets.zero,
@@ -81,7 +81,7 @@ Widget cardPay(BuildContext context){
               return Container(
                  padding: EdgeInsets.only(top: 50.0),
                     width: MediaQuery.of(context).size.width*0.45,
-                    height: MediaQuery.of(context).size.height*0.14,
+                    height: MediaQuery.of(context).size.height*0.19,
                         child: Card(
                             elevation: 2,
                             margin: EdgeInsets.zero,
