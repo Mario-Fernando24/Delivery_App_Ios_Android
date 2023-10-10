@@ -37,7 +37,6 @@ import 'src/pages/delivery/orders/map/delivery_orders_map_page.dart';
 import 'src/pages/restaurant/categories/list/restaurant_category_list_page.dart';
 import 'src/pages/restaurant/categories/list/updateCategory.dart';
 
-
 PushNotificacionProviders pushNotificacionProviders = PushNotificacionProviders();
 User myUserSession = User.fromJson(GetStorage().read('user') ?? {});
 
@@ -137,8 +136,8 @@ class _MyAppState extends State<MyApp> {
           onError:  Colors.grey,
           onSecondary:  Colors.grey,
           background:  Colors.grey, 
-          secondaryVariant: Colors.grey,
-          primaryVariant: Colors.grey,
+          // secondaryVariant: Colors.grey,
+          // primaryVariant: Colors.grey,
         )
       ),
       navigatorKey: Get.key,
