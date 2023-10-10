@@ -12,6 +12,7 @@ class LoginController extends GetxController{
   //instanciamos nuestra clase
     UsersProviders usersProviders = UsersProviders();
         User userModelo = User();
+        var obscureText = true.obs; // Estado para controlar la visibilidad de la contraseña
 
 
   void goToRegisterPage(){

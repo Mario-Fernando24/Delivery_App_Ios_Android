@@ -1,4 +1,7 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
 import 'package:ios/src/pages/login/login_controller.dart';
 import 'package:ios/src/utils/theme/style.dart';
@@ -10,7 +13,7 @@ class LoginPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return Obx(()=>  Scaffold(
       bottomNavigationBar: Container(
         height: 50,
         child: _textNoTengoCuenta(),
@@ -24,7 +27,7 @@ class LoginPage extends StatelessWidget {
         _textApp()
         ],)
       ],),
-    );
+    ));
   }
 
 Widget _backgruoundCover(BuildContext context){
@@ -89,7 +92,7 @@ Widget _boxForm(BuildContext context){
         )
       ]
     ),
-    height: MediaQuery.of(context).size.height*0.45,
+    height: MediaQuery.of(context).size.height*0.70,
     child: SingleChildScrollView(
       child: Column(
         children: [
@@ -132,12 +135,21 @@ Widget _textPassword(){
      child: TextField(
       controller: loginController.passwordController,
       keyboardType: TextInputType.text,
-      obscureText: true,
+      obscureText:loginController.obscureText.value,
       decoration: InputDecoration(
         hintText: 'Contraseña',
-        prefixIcon: Icon(Icons.lock)
+        prefixIcon: Icon(Icons.lock),
+          suffixIcon: IconButton(
+            icon: Icon(loginController.obscureText.value ? Icons.visibility : Icons.visibility_off),
+            onPressed: () {
+              
+              
+                loginController.obscureText.value = !loginController.obscureText.value; // Cambia la visibilidad de la contraseña
+              
+            }
       ),
      ),
+   )
    );
 }
 
